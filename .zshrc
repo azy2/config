@@ -88,6 +88,9 @@ alias install="yaourt -Sy && yaourt -S"
 alias update="yaourt -Syu --devel --aur"
 alias remove="yaourt -R"
 
+alias off="sudo shutdown -h now"
+alias restart="sudo reboot"
+
 function e {
     nohup emacsclient --alternate-editor="" -c "$@" &> /dev/null &
     disown

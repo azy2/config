@@ -12,7 +12,10 @@ fi
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
     sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-    rm .zshrc
+fi
+
+if [ -e "$HOME/.zshrc" ]; then
+    rm "$HOME/.zshrc"
 fi
 
 if [ ! -L "$HOME/.zshrc" ]; then
