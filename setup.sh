@@ -20,6 +20,7 @@ fi
 
 if [ ! -L "$HOME/.zshrc" ]; then
     ln -s "$HOME/config/.zshrc" "$HOME/.zshrc"
+    echo "export PATH=\"\$PATH:$PATH\"" >> "$HOME/.zshrc"
 fi
 
 if [ ! -L "$HOME/.zsh_profile" ]; then

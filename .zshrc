@@ -53,7 +53,7 @@ plugins=(git)
 
 # User configuration
 
-  export PATH="/home/ben/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/opt/android-sdk/platform-tools:/opt/android-sdk/tools:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/ben/.local/bin:/home/ben/cabal/emacs/.cabal-sandbox/bin/:/home/ben/.gem/ruby/2.3.0/bin:/home/ben/node_modules/.bin"
+  # export PATH="/home/ben/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/opt/android-sdk/platform-tools:/opt/android-sdk/tools:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/ben/.local/bin:/home/ben/cabal/emacs/.cabal-sandbox/bin/:/home/ben/.gem/ruby/2.3.0/bin:/home/ben/node_modules/.bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
