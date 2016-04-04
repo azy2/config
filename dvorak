@@ -1,0 +1,32 @@
+keycode  10 = exclam 1 exclam 1
+keycode  11 = at 2 at 2
+keycode  12 = braceleft 3 braceleft 3
+keycode  13 = braceright 4 braceright 4
+keycode  14 = percent 5 percent 5
+keycode  15 = asciicircum 6 asciicircum 6 dead_circumflex dead_circumflex dead_circumflex
+keycode  16 = ampersand 7 ampersand 7
+! keycode  16 = parenleft 7 parenleft 7
+keycode  17 = asterisk 8 asterisk 8
+! keycode  17 = parenright 8 parenright 8
+! keycode  18 = bracketleft 9 bracketleft 9 dead_grave NoSymbol dead_grave
+keycode  18 = parenleft 9 parenleft 9
+! keycode  19 = bracketright 0 bracketright 0
+keycode  19 = parenright 0 parenright 0
+keycode  20 = bracketleft numbersign bracketleft numbersign
+keycode  21 = bracketright grave bracketright grave dead_tilde NoSymbol dead_tilde
+! keycode  34 = BackSpace BackSpace BackSpace BackSpace
+keycode  49 = dollar asciitilde dollar asciitilde dead_grave dead_tilde dead_grave
+! keycode  62 = slash question slash question
+! keycode  22 = Delete Delete Delete Delete
+
+! remove Mod1 = Alt_L
+! remove Control = Control_L
+! keysym Control_L = Alt_L
+! keysym Alt_L = Control_L
+! add Mod1 = Alt_L
+! add Control = Control_L
+
+! remove Lock = Caps_Lock
+! keysym Escape = Caps_Lock
+! keysym Caps_Lock = Escape
+! add Lock = Caps_Lock
