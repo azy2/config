@@ -41,6 +41,7 @@ values."
      cscope
      semantic
      d
+     git
      evil-cleverparens
      go
      html
@@ -246,6 +247,12 @@ user code."
       (error "No number at point"))
   (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
 
+(defun open-multi-term ()
+  (interactive)
+  (if (get-buffer "*terminal<1>*")
+      (switch-to-buffer "*terminal<1>*")
+    (multi-term)))
+
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
@@ -282,6 +289,9 @@ layers configuration. You are free to put any user code."
 
  (setq flycheck-clang-language-standard "c++1y")
  (setq flycheck-clang-standard-library "libc++")
+
+ (setq server-kill-new-buffers t)
+ (add-hook 'server-done-hook 'kill-buffer)
 
  ;; (add-hook 'c++-mode-hook 'clang-format-bindings)
 
