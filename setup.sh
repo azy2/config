@@ -8,7 +8,11 @@ fi
 
 mkdir -p ~/.xmonad
 if [ ! -L "$HOME/.xmonad/xmonad.hs" ]; then
-    ln -s "$HOME/config/.xmonad.hs" "$HOME/.xmonad/xmonad.hs"
+    ln -s "$HOME/config/xmonad.hs" "$HOME/.xmonad/xmonad.hs"
+fi
+
+if [ ! -L "$HOME/.xmobarrc" ]; then
+    ln -s "$HOME/config/.xmobarrc" "$HOME/.xmobarrc"
 fi
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
@@ -21,7 +25,6 @@ fi
 
 if [ ! -L "$HOME/.zshrc" ]; then
     ln -s "$HOME/config/.zshrc" "$HOME/.zshrc"
-    echo "export PATH=\"\$PATH:$PATH\"" >> "$HOME/.zshrc"
 fi
 
 if [ ! -L "$HOME/.zsh_profile" ]; then

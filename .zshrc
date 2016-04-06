@@ -53,7 +53,9 @@ plugins=(git)
 
 # User configuration
 
-  # export PATH="/home/ben/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/opt/android-sdk/platform-tools:/opt/android-sdk/tools:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/ben/.local/bin:/home/ben/cabal/emacs/.cabal-sandbox/bin/:/home/ben/.gem/ruby/2.3.0/bin:/home/ben/node_modules/.bin"
+export PATH="/home/ben/opt/nondex/bin:/home/ben/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/opt/android-sdk/platform-tools:/opt/android-sdk/tools:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/ben/.local/bin:/home/ben/cabal/emacs/.cabal-sandbox/bin/:/home/ben/.gem/ruby/2.3.0/bin:/home/ben/node_modules/.bin"
+
+export PYTHONPATH="/home/ben/research/effective-experiments/pyutils/"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -85,11 +87,15 @@ source $ZSH/oh-my-zsh.sh
 alias make="make -j9"
 
 alias install="yaourt -Sy && yaourt -S"
+alias search="pacman -Ss"
+alias searchaur="yaourt -Ss"
 alias update="yaourt -Syu --devel --aur"
 alias remove="yaourt -R"
 
 alias off="sudo shutdown -h now"
 alias restart="sudo reboot"
+
+alias locate="sudo updatedb && locate"
 
 function e {
     nohup emacsclient --alternate-editor="" -c "$@" &> /dev/null &
@@ -102,7 +108,7 @@ function en {
     disown
 }
 
-export EDITOR=e
+export EDITOR=vim
 
 function chpwd() {
     emulate -L zsh
@@ -114,3 +120,7 @@ function chpwd() {
 
 clear
 ls
+
+alias nondex="/home/ben/opt/nondex/bin/java -Xbootclasspath/p:/home/ben/opt/nondex.jar"
+
+eval "$(fasd --init auto)"

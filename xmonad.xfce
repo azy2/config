@@ -21,6 +21,9 @@ import           System.Exit
 import           XMonad
 import           XMonad.Actions.SpawnOn
 import           XMonad.Hooks.DynamicLog
+import           XMonad.Hooks.EwmhDesktops
+import           XMonad.Hooks.InsertPosition
+import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers
 import           XMonad.Hooks.SetWMName
 import           XMonad.Layout.NoBorders
@@ -37,7 +40,7 @@ import           XMonad.Hooks.EwmhDesktops
 
 import           XMonad.Util.Run
 
-import           XMonad.Config.Kde
+import           XMonad.Config.Xfce
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -178,7 +181,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- , ((modm              , xK_b     ), sendMessage ToggleStruts)
 
     -- Quit xmonad
-    , ((modm .|. shiftMask, xK_a     ), io (exitWith ExitSuccess))
+    , ((modm .|. shiftMask, xK_a     ), spawn "xfce4-session-logout")
 
     -- Restart xmonad
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
@@ -261,15 +264,67 @@ myLayout = smartBorders $ ResizableTall 1 (5/100) (1/2) [] ||| noBorders Full
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
-myManageHook = manageSpawn <+> composeAll
-    [ className =? "MPlayer"        --> doFloat
-    , className =? "Gimp"           --> doFloat
-    , className =? "Mathematica"    --> doFloat
-    , className =? "Calculator"         --> doFloat
-    , className =? "Figure" --> doFloat
-    , isFullscreen --> doFullFloat
-    , resource =? "desktop_window" --> doIgnore
-    , fmap ("Handmade Hero" `isInfixOf`) title --> doFloat]
+myManageHook = composeAll [ matchAny v --> a | (v,a) <- myActions]
+  where myActions =
+          [ ("Xfrun4"                         , doFloat)
+            , ("Xfce4-notifyd"                  , doIgnore)
+            , ("MPlayer"                        , doFloat)
+            , ("mpv"                            , doFloat)
+            , ("gimp-image-window"              , (ask >>= doF . W.sink))
+            , ("gimp-toolbox"                   , (ask >>= doF . W.sink))
+            , ("gimp-dock"                      , (ask >>= doF . W.sink))
+            , ("gimp-image-new"                 , doFloat)
+            , ("gimp-toolbox-color-dialog"      , doFloat)
+            , ("gimp-layer-new"                 , doFloat)
+            , ("gimp-vectors-edit"              , doFloat)
+            , ("gimp-levels-tool"               , doFloat)
+            , ("preferences"                    , doFloat)
+            , ("gimp-keyboard-shortcuts-dialog" , doFloat)
+            , ("gimp-modules"                   , doFloat)
+            , ("unit-editor"                    , doFloat)
+            , ("screenshot"                     , doFloat)
+            , ("gimp-message-dialog"            , doFloat)
+            , ("gimp-tip-of-the-day"            , doFloat)
+            , ("plugin-browser"                 , doFloat)
+            , ("procedure-browser"              , doFloat)
+            , ("gimp-display-filters"           , doFloat)
+            , ("gimp-color-selector"            , doFloat)
+            , ("gimp-file-open-location"        , doFloat)
+            , ("gimp-color-balance-tool"        , doFloat)
+            , ("gimp-hue-saturation-tool"       , doFloat)
+            , ("gimp-colorize-tool"             , doFloat)
+            , ("gimp-brightness-contrast-tool"  , doFloat)
+            , ("gimp-threshold-tool"            , doFloat)
+            , ("gimp-curves-tool"               , doFloat)
+            , ("gimp-posterize-tool"            , doFloat)
+            , ("gimp-desaturate-tool"           , doFloat)
+            , ("gimp-scale-tool"                , doFloat)
+            , ("gimp-shear-tool"                , doFloat)
+            , ("gimp-perspective-tool"          , doFloat)
+            , ("gimp-rotate-tool"               , doFloat)
+            , ("gimp-open-location"             , doFloat)
+            , ("gimp-file-open"                 , doFloat)
+            , ("animation-playbac"              , doFloat)
+            , ("gimp-file-save"                 , doFloat)
+            , ("file-jpeg"                      , doFloat)
+            ]
+
+matchAny x = foldr ((<||>) . (=? x)) (return False) [className, title, name, role]
+
+name = stringProperty "WM_CLASS"
+
+role = stringProperty "WM_WINDOW_ROLE"
+
+pbManageHook = composeAll $ concat
+  [ [ manageDocks ]
+  , [ manageHook defaultConfig ]
+  , [ isDialog --> doCenterFloat ]
+  , [ isFullscreen --> (doF W.focusDown <+> doFullFloat) ]
+  , [ fmap not isDialog --> doF avoidMaster ]]
+
+avoidMaster = W.modify' $ \c -> case c of
+  W.Stack t [] (r:rs) -> W.Stack t [r] rs
+  otherwise -> c
 
 ------------------------------------------------------------------------
 -- Event handling
@@ -297,7 +352,7 @@ myEventHook = fullscreenEventHook
 -- It will add EWMH logHook actions to your custom log hook by
 -- combining it with ewmhDesktopsLogHook.
 --
-myLogHook = return ()
+-- myLogHook = return ()
 
 ------------------------------------------------------------------------
 -- Startup hook
@@ -313,9 +368,7 @@ myLogHook = return ()
 -- It will add initialization of EWMH support to your custom startup
 -- hook by combining it with ewmhDesktopsStartup.
 --
-myStartupHook = do
-  setWMName "LG3D"
-  spawn "emacs"
+myStartupHook = return ()
 
 
 
@@ -330,7 +383,10 @@ spawnToWorkspace program workspace = do
 
 -- Run xmonad with the settings you specify. No need to modify this.
 --
-main = xmonad =<< xmobar defaults
+main = xmonad defaults {
+
+  startupHook = startupHook defaults >> setWMName "LG3D"
+                       }
 -- main = xmonad defaults
 
 -- A structure containing your configuration settings, overriding
@@ -339,7 +395,7 @@ main = xmonad =<< xmobar defaults
 --
 -- No need to modify this.
 
-defaults = defaultConfig {
+defaults = ewmh xfceConfig {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
@@ -356,9 +412,12 @@ defaults = defaultConfig {
         mouseBindings      = myMouseBindings,
 
       -- hooks, layouts
-        layoutHook         = myLayout,
-        manageHook         = myManageHook,
-        handleEventHook    = myEventHook,
-        logHook            = myLogHook,
-        startupHook        = myStartupHook
+        layoutHook         = avoidStruts myLayout,
+        manageHook         = pbManageHook <+> myManageHook
+                                          <+> manageDocks
+                                          <+> manageSpawn
+                                          <+> manageHook xfceConfig,
+        handleEventHook    = ewmhDesktopsEventHook,
+        logHook            = ewmhDesktopsLogHook,
+        startupHook        = myStartupHook <+> ewmhDesktopsStartup
     }

@@ -45,6 +45,7 @@ values."
      go
      html
      java
+     lua
      javascript
      python
      (scala :variables scala-enable-eldoc-mode t)
