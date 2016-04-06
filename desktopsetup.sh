@@ -5,6 +5,12 @@ sudo rfkill unblock all
 xset r rate 200 50
 feh --bg-scale /home/ben/Documents/snev7Ga.png
 
+trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --height 27 --transparent true --alpha 0 --tint 0x242424 &
+
+pasystray &
+
+nm-applet --sm-disable &
+
 MONITOR=`xrandr | grep -o "HDMI1 connected"`
 if [ -n "$MONITOR" ]
 then

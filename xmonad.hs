@@ -21,6 +21,9 @@ import           System.Exit
 import           XMonad
 import           XMonad.Actions.SpawnOn
 import           XMonad.Hooks.DynamicLog
+import           XMonad.Hooks.EwmhDesktops
+import           XMonad.Hooks.InsertPosition
+import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers
 import           XMonad.Hooks.SetWMName
 import           XMonad.Layout.NoBorders
@@ -36,9 +39,6 @@ import qualified XMonad.StackSet             as W
 import           XMonad.Hooks.EwmhDesktops
 
 import           XMonad.Util.Run
-
-import           XMonad.Config.Kde
-
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
@@ -271,6 +271,18 @@ myManageHook = manageSpawn <+> composeAll
     , resource =? "desktop_window" --> doIgnore
     , fmap ("Handmade Hero" `isInfixOf`) title --> doFloat]
 
+pbManageHook = composeAll $ concat
+   [ [ manageDocks ]
+   , [ manageHook defaultConfig ]
+   , [ isDialog --> doCenterFloat ]
+   , [ isFullscreen --> (doF W.focusDown <+> doFullFloat) ]
+   , [ fmap not isDialog --> doF avoidMaster ]]
+
+avoidMaster = W.modify' $ \c -> case c of
+   W.Stack t [] (r:rs) -> W.Stack t [r] rs
+   otherwise -> c
+
+
 ------------------------------------------------------------------------
 -- Event handling
 
@@ -297,7 +309,7 @@ myEventHook = fullscreenEventHook
 -- It will add EWMH logHook actions to your custom log hook by
 -- combining it with ewmhDesktopsLogHook.
 --
-myLogHook = return ()
+-- myLogHook = return ()
 
 ------------------------------------------------------------------------
 -- Startup hook
@@ -330,7 +342,9 @@ spawnToWorkspace program workspace = do
 
 -- Run xmonad with the settings you specify. No need to modify this.
 --
-main = xmonad =<< xmobar defaults
+main = xmonad =<< xmobar defaults {
+  startupHook = startupHook defaults >> setWMName "LG3D"
+                                  }
 -- main = xmonad defaults
 
 -- A structure containing your configuration settings, overriding
@@ -339,7 +353,7 @@ main = xmonad =<< xmobar defaults
 --
 -- No need to modify this.
 
-defaults = defaultConfig {
+defaults = ewmh defaultConfig {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
@@ -356,9 +370,12 @@ defaults = defaultConfig {
         mouseBindings      = myMouseBindings,
 
       -- hooks, layouts
-        layoutHook         = myLayout,
-        manageHook         = myManageHook,
-        handleEventHook    = myEventHook,
-        logHook            = myLogHook,
-        startupHook        = myStartupHook
+        layoutHook         = avoidStruts myLayout,
+        manageHook         = pbManageHook <+> myManageHook
+                                          <+> manageDocks
+                                          <+> manageSpawn
+                                          <+> manageHook defaultConfig,
+        handleEventHook    = ewmhDesktopsEventHook,
+        logHook            = ewmhDesktopsLogHook,
+        startupHook        = myStartupHook <+> ewmhDesktopsStartup
     }

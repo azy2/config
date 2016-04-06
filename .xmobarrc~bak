@@ -1,0 +1,47 @@
+Config { font = "xft:DejaVu Sans Mono:size=12:antialias=true"
+       , bgColor = "black"
+       , fgColor = "grey"
+       , position = Top
+       , lowerOnStart = True
+       , hideOnStart = False
+       , allDesktops = False
+       , overrideRedirect = True
+       , pickBroadest = False
+       , persistent = True
+       , commands = [
+                      Run DynNetwork [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
+                                     , "--Low"      , "1000"
+                                     , "--High"     , "5000"
+                                     , "--low"      , "darkgreen"
+                                     , "--normal"   , "darkorange"
+                                     , "--high"     , "darkred"
+                                     ] 10
+                    , Run MultiCpu   [ "--template" , "Cpu: <total0>%|<total1>%|<total2>%|<total3>%|<total4>%|<total5>%|<total6>%|<total7>%"
+                                     , "--Low"      , "50"
+                                     , "--High"     , "85"
+                                     , "--low"      , "darkgreen"
+                                     , "--normal"   , "darkorange"
+                                     , "--high"     , "darkred"
+                                     ] 10
+                    , Run Memory     [ "--template" , "Mem: <usedratio>%"
+                                     , "--Low"      , "20"
+                                     , "--High"     , "90"
+                                     , "--low"      , "darkgreen"
+                                     , "--normal"   , "darkorange"
+                                     , "--high"     , "darkred"
+                                     ] 10
+		    , Run Com "xkb-switch" [] "kbd" 10
+--                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+--                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Swap [] 10
+                    , Run Com "uname" ["-s","-r"] "" 36000
+                    , Run Date "%a %b %d %I:%M" "date" 10
+		    , Run StdinReader
+		    , Run Com "pamixer" ["--get-volume"] "volume" 1
+		    , Run Com "/home/ben/bin/wireless.sh" [] "wireless" 1
+		    , Run Com "/home/ben/bin/battery" [] "bat" 100
+                    ]
+       , sepChar = "`"
+       , alignSep = "}{"
+       , template = "`StdinReader` | `multicpu` | `memory` }{ `dynnetwork` | `volume`% | <fc=#E022DA>`date`</fc> | `bat`"
+       }
