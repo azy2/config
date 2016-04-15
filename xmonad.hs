@@ -28,6 +28,7 @@ import           XMonad.Hooks.ManageHelpers
 import           XMonad.Hooks.SetWMName
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.ResizableTile
+import           XMonad.Layout.Spacing
 
 import           XMonad.Util.EZConfig        (additionalKeys)
 
@@ -104,13 +105,13 @@ myFocusedBorderColor = "#2DEDCD"
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- launch a terminal"
-    [ ((modm, xK_Return), spawn "emacsclient -c -e \"(open-multi-term)\"")
+    [ ((modm, xK_Return), spawn "emacsclient -c")
 
     --  Launch dmenu
     , ((modm, xK_e     ), spawn "rofi -show run -font \"Dejavu Sans Mono 13\" -bg \"#303030\" -fg \"a0a0a0\" -bgalt \"#232323\" -hlbg \"#a0a0a0\" -hlfg \"#303030\"")
 
     --  Launch emacs
-    , ((modm, xK_o     ), spawn "emacsclient -c -e \"(open-multi-term)\"")
+    , ((modm, xK_o     ), spawn "emacsclient -c")
 
     --  Launch dmenu
     , ((modm, xK_r     ), spawn "chromium")
@@ -229,7 +230,6 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 
 ------------------------------------------------------------------------
 -- Layouts:
-
 -- You can specify and transform your layouts by modifying these values.
 -- If you change layout bindings be sure to use 'mod-shift-space' after
 -- restarting (with 'mod-q') to reset your layout state to the new
@@ -244,7 +244,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = smartBorders $ ResizableTall 1 (5/100) (1/2) [] ||| noBorders Full
+myLayout = spacing 3 $ smartBorders $ ResizableTall 1 (5/100) (1/2) [] ||| noBorders Full
 
 ------------------------------------------------------------------------
 -- Window rules:

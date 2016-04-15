@@ -27,8 +27,8 @@ if [ ! -L "$HOME/.zshrc" ]; then
     ln -s "$HOME/config/.zshrc" "$HOME/.zshrc"
 fi
 
-if [ ! -L "$HOME/.zsh_profile" ]; then
-    ln -s "$HOME/config/.zsh_profile" "$HOME/.zsh_profile"
+if [ ! -L "$HOME/.zlogin" ]; then
+    ln -s "$HOME/config/.zlogin" "$HOME/.zlogin"
 fi
 
 if [ ! -L "$HOME/.oh-my-zsh/themes/ben2.zsh-theme" ]; then

@@ -5,7 +5,7 @@ Config {
        , position = TopW L 90
        , commands = [ Run Cpu ["-L","3","-H","50","-l","gray90","-n","gray90","-h","#F25555"] 10
                     , Run Memory ["-t","Mem: <usedratio>%","-H","80","-L","10","-l","gray90","-n","gray90","-h","#F25555"] 10
-                    , Run Date "%a %b %_d %k:%M" "date" 10
+                    , Run Date "%a %b %_d %I:%M %p" "date" 10
                     , Run DynNetwork ["-t","Net: +<rx>, -<tx>","-H","200","-L","10","-h","gray90","-l","gray90","-n","gray90"] 10
                     , Run CoreTemp ["-t", "Temp: <core1> <core2>", "-L", "40", "-H", "75", "-l", "lightblue", "-n", "gray90", "-h", "#F25555"] 50
                     , Run Com "network-check.sh" [] "netcheck" 5

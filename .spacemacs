@@ -42,7 +42,6 @@ values."
      semantic
      d
      git
-     evil-cleverparens
      go
      html
      java
@@ -55,6 +54,7 @@ values."
      rust
      racket
      shell-scripts
+     smartparens
      clojure
      personal
      private
@@ -173,7 +173,7 @@ values."
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar t
+   dotspacemacs-loading-progress-bar nil
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
    dotspacemacs-fullscreen-at-startup nil
@@ -200,7 +200,7 @@ values."
    dotspacemacs-smooth-scrolling t
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
-   dotspacemacs-smartparens-strict-mode nil
+   dotspacemacs-smartparens-strict-mode t
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
@@ -228,14 +228,68 @@ user code."
   (setq racer-rust-src-path "/usr/src/rust/src/")
   )
 
+(defun qt-cedet-hook ()
+   (semantic-add-system-include "/usr/include/qt" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtConcurrent" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtCore" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtDBus" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtGui" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtLocation" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtNetwork" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtOpenGL" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtPlatformSupport" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtPrintSupport" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtQml" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtQmlDevTools" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtQuick" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtQuickParticles" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtQuickTest" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtSensors" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtSql" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtTest" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtWebKit" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtWebKitWidgets" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtWidgets" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtXml" 'c++-mode)
+   (semantic-add-system-include "/usr/include/qt/QtXmlPatterns" 'c++-mode)
+   (add-to-list 'semantic-lex-c-preprocessor-symbol-file "/usr/include/qt/QtCore/qconfig.h")
+   (add-to-list 'semantic-lex-c-preprocessor-symbol-file "/usr/include/qt/QtCore/qconfig-dist.h"))
+(defun qt-flycheck-hook ()
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtConcurrent")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtCore")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtDBus")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtGui")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtLocation")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtNetwork")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtOpenGL")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtPlatformSupport")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtPrintSupport")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtQml")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtQmlDevTools")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtQuick")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtQuickParticles")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtQuickTest")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtSensors")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtSql")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtTest")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtWebKit")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtWebKitWidgets")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtWidgets")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtXml")
+  (add-to-list 'flycheck-clang-includes "/usr/include/qt/QtXmlPatterns")
+  (setq flycheck-clang-language-standard "c++1y")
+  (setq flycheck-clang-standard-library "libc++"))
+
+
 (defun current-dir ()
   (cadr (split-string (pwd))))
 
-(defun exit-to-konsole ()
-  (interactive)
-  (shell-command (concat "nohup konsole --workdir " (current-dir) " > /dev/null &"))
-  (shell-command "disown")
-  (delete-frame))
+;; (defun exit-to-konsole ()
+;;   (interactive)
+;;   (shell-command (concat "nohup konsole --workdir " (current-dir) " > /dev/null &"))
+;;   (shell-command "disown")
+;;   (delete-frame))
 
 (defun clang-format-bindings ()
   (define-key c++-mode-map [tab] 'clang-format-buffer))
@@ -262,8 +316,8 @@ layers configuration. You are free to put any user code."
 
  (global-set-key (kbd "C-c n") 'next-error)
 
- (global-unset-key (kbd "C-x C-c"))
- (global-set-key (kbd "C-x C-c") 'exit-to-konsole)
+ ;; (global-unset-key (kbd "C-x C-c"))
+ ;; (global-set-key (kbd "C-x C-c") 'exit-to-konsole)
 
  (setq c-default-style "linux"
        c-basic-offset 4)
@@ -287,8 +341,15 @@ layers configuration. You are free to put any user code."
  (require 'company-emacs-eclim)
  (company-emacs-eclim-setup)
 
- (setq flycheck-clang-language-standard "c++1y")
- (setq flycheck-clang-standard-library "libc++")
+ (add-to-list 'auto-mode-alist
+              '("/usr/include/qt" . c++-mode))
+ (add-hook 'c++-mode-hook 'qt-cedet-hook)
+
+ ;; (global-hungry-delete-mode)
+
+ (setq redisplay-dont-pause t)
+
+ (add-hook 'c++-mode-hook 'qt-flycheck-hook)
 
  (setq server-kill-new-buffers t)
  (add-hook 'server-done-hook 'kill-buffer)
@@ -343,8 +404,8 @@ layers configuration. You are free to put any user code."
      ("`fmap`" . "ⓜ")
      ("`liftM`" . "↥")
      ("`liftM`" . "↥"))))
- (setq haskell-stylish-on-save t)
-)
+ (setq haskell-stylish-on-save t))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
