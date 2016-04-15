@@ -1,10 +1,8 @@
-if [ ! -e "$HOME/.spacemacs" ]; then
-    mv "$HOME/.emacs.d" "$HOME/.emacs.d.bak"
-    git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-    if [ ! -L "$HOME/.spacemacs" ]; then
-        ln -s "$HOME/config/.spacemacs" "$HOME/.spacemacs"
-    fi
+if [ ! -L "$HOME/.emacs.d/init.el" ]; then
+    mkdir -p "$HOME/.emacs.d/"
+    ln -s "$HOME/config/init.el" "$HOME/.emacs.d/init.el"
 fi
+
 
 mkdir -p ~/.xmonad
 if [ ! -L "$HOME/.xmonad/xmonad.hs" ]; then
