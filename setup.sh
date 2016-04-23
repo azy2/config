@@ -33,6 +33,11 @@ if [ ! -L "$HOME/.oh-my-zsh/themes/ben2.zsh-theme" ]; then
     ln -s "$HOME/config/ben2.zsh-theme" "$HOME/.oh-my-zsh/themes/ben2.zsh-theme"
 fi
 
-if [ ! -L "$HOME/.kde4/share/config/konsolerc" ]; then
-    ln -s "$HOME/config/konsolerc" "$HOME/.kde4/share/config/konsolerc"
+if [ ! -L "$HOME/.config/konsolerc" ]; then
+    ln -s "$HOME/config/konsolerc" "$HOME/.config/konsolerc"
+fi
+
+if [ ! -L "$HOME/.local/share/konsole/custom.colorscheme" ]; then
+    mkdir -p "$HOME/.local/share/konsole/"
+    ln -s "$HOME/config/custom.colorscheme" "$HOME/.local/share/konsole/custom.colorscheme"
 fi
