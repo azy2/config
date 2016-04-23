@@ -32,3 +32,7 @@ fi
 if [ ! -L "$HOME/.oh-my-zsh/themes/ben2.zsh-theme" ]; then
     ln -s "$HOME/config/ben2.zsh-theme" "$HOME/.oh-my-zsh/themes/ben2.zsh-theme"
 fi
+
+if [ ! -L "$HOME/.kde4/share/config/konsolerc" ]; then
+    ln -s "$HOME/config/konsolerc" "$HOME/.kde4/share/config/konsolerc"
+fi
