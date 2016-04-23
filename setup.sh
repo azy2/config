@@ -41,3 +41,6 @@ if [ ! -L "$HOME/.local/share/konsole/custom.colorscheme" ]; then
     mkdir -p "$HOME/.local/share/konsole/"
     ln -s "$HOME/config/custom.colorscheme" "$HOME/.local/share/konsole/custom.colorscheme"
 fi
+
+rm -rf "$HOME/.emacs.d/local/noctilux-theme/"
+ln -s "$HOME/config/noctilux-theme/" "$HOME/.emacs.d/local/noctilux-theme/"
