@@ -105,7 +105,7 @@ myFocusedBorderColor = "#2DEDCD"
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- launch a terminal"
-    [ ((modm, xK_Return), spawn "emacsclient -c")
+    [ ((modm, xK_Return), spawn "konsole")
 
     --  Launch dmenu
     , ((modm, xK_e     ), spawn "rofi -show run -font \"Dejavu Sans Mono 13\" -bg \"#303030\" -fg \"a0a0a0\" -bgalt \"#232323\" -hlbg \"#a0a0a0\" -hlfg \"#303030\"")
