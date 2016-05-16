@@ -97,20 +97,20 @@ alias restart="sudo reboot"
 
 alias locate="sudo updatedb && locate"
 
-# function e {
-#     nohup emacsclient --alternate-editor="" -c "$@" &> /dev/null &
-#     disown
-#     exit
-# }
-
-# function en {
-#     nohup emacsclient --alternate-editor="" -c "$@" &> /dev/null &
-#     disown
-# }
-
 function e {
-    nohup emacsclient $@ &> /dev/null &
+    nohup emacsclient --alternate-editor="" -c "$@" &> /dev/null &
+    disown
+    exit
 }
+
+function en {
+    nohup emacsclient --alternate-editor="" -c "$@" &> /dev/null &
+    disown
+}
+
+# function e {
+#     nohup emacsclient $@ &> /dev/null &
+# }
 
 export EDITOR=emacsclient
 

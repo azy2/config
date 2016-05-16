@@ -18,6 +18,7 @@ keycode  21 = bracketright grave bracketright grave dead_tilde NoSymbol dead_til
 keycode  49 = dollar asciitilde dollar asciitilde dead_grave dead_tilde dead_grave
 ! keycode  62 = slash question slash question
 ! keycode  22 = Delete Delete Delete Delete
+keycode 110 = dollar asciitilde dollar asciitilde
 
 ! remove Mod1 = Alt_L
 ! remove Control = Control_L

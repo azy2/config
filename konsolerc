@@ -1,14 +1,14 @@
 [Desktop Entry]
-DefaultProfile=Shell.profile
+DefaultProfile=
 
 [Favorite Profiles]
-Favorites=Shell.profile
+Favorites=
 
 [KonsoleWindow]
 ShowMenuBarByDefault=false
 
 [MainWindow]
-Height 1080=1047
+Height 1080=1074
 MenuBar=Disabled
 State=AAAA/wAAAAD9AAAAAAAAA74AAAQfAAAABAAAAAQAAAAIAAAACPwAAAAA
 ToolBarsMovable=Disabled

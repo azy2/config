@@ -38,6 +38,8 @@
     guide-key
     multiple-cursors
     smart-mode-line
+    auctex
+    company-math
     ))
 
 (unless package-archive-contents
@@ -150,11 +152,15 @@
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (with-eval-after-load 'flycheck
   (flycheck-pos-tip-mode))
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+;; (eval-after-load 'flycheck
+;;   '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+(setq-default flycheck-disabled-checkers
+              (append flycheck-disabled-checkers
+                      '(c/c++-gcc)))
 (add-hook 'c++-mode-hook (lambda ()
-                           (setq flycheck-gcc-language-standard "c++1y"
-                                 flycheck-clang-language-standard "c++1y")))
+                           (setq flycheck-gcc-language-standard "c++11"
+                                 flycheck-clang-language-standard "c++11"
+                                 flycheck-clang-standard-library "libc++")))
 
 ;; Smartparens
 ;; (require 'smartparens-config)
@@ -283,6 +289,36 @@ Also turns off numbering in starred modes like *scratch*."
 
 (sml/setup)
 
+(require 'tex)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+(add-hook 'LaTeX-mode-hook 'visual-line-mode)
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(setq reftex-plug-into-AUCTeX t)
+(TeX-global-PDF-mode t)
+(add-to-list 'company-backends 'company-math-symbols-unicode)
+
+(defun latex-compile ()
+  (interactive)
+  (save-buffer)
+  (TeX-command "LaTeX" 'TeX-master-file))
+
+(eval-after-load 'latex
+  '(define-key LaTeX-mode-map (kbd "C-x C-s") 'latex-compile))
+
+(defun current-dir ()
+  (cadr (split-string (pwd))))
+
+(defun exit-to-konsole ()
+  (interactive)
+  (shell-command (concat "nohup konsole --workdir " (current-dir) " > /dev/null &"))
+  (shell-command "disown")
+  (delete-frame))
+
+(global-unset-key (kbd "C-x C-c"))
+(global-set-key (kbd "C-x C-c") 'exit-to-konsole)
 
 (server-start)
 
