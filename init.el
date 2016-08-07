@@ -40,6 +40,7 @@
     smart-mode-line
     auctex
     company-math
+    web-mode
     ))
 
 (unless package-archive-contents
@@ -66,6 +67,10 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (require 'cl)
+(defvar dont-indent-modes
+  '(makefile-makepp-mode makefile-bsdmake-mode makefile-imake-mode makefile-automake-mode makefile-mode makefile-gmake-mode)
+  "A list of the makefile major modes")
+
 (defun indent-whole-buffer ()
   (interactive)
   (delete-trailing-whitespace)
@@ -73,18 +78,21 @@
   (untabify (point-min) (point-max)))
 (defun indent-file-when-save ()
   (make-local-variable 'after-save-hook)
-  (add-hook 'after-save-hook
-            (lambda ()
-              (if (buffer-file-name)
-                  (indent-whole-buffer))
-              (save-buffer))))
+  (unless (member major-mode dont-indent-modes)
+    (add-hook 'after-save-hook
+              (lambda ()
+                (if (buffer-file-name)
+                    (indent-whole-buffer))
+                (save-buffer)))))
 (defun indent-file-when-visit ()
   (make-local-variable 'find-file-hook)
-  (add-hook 'find-file-hook
-            (lambda ()
-              (if (buffer-file-name)
-                  (indent-whole-buffer))
-              (save-buffer))))
+  (unless (member major-mode dont-indent-modes)
+    (add-hook 'find-file-hook
+              (lambda ()
+                (if (buffer-file-name)
+                    (indent-whole-buffer))
+                (save-buffer)))))
+
 (add-hook 'prog-mode-hook 'indent-file-when-save)
 (add-hook 'prog-mode-hook 'indent-file-when-visit)
 
@@ -104,7 +112,7 @@
 (global-font-lock-mode 1)
 (setq font-lock-maximum-decoration t)
 
-(set-face-attribute 'default nil :font "DejaVu Sans Mono 12")
+(set-face-attribute 'default nil :font "DejaVu Sans Mono 14")
 
 ;; Company mode
 (require 'company)
@@ -300,13 +308,29 @@ Also turns off numbering in starred modes like *scratch*."
 (TeX-global-PDF-mode t)
 (add-to-list 'company-backends 'company-math-symbols-unicode)
 
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.js?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.xml?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+
+(setq web-mode-enable-auto-pairing t)
+(setq web-mode-enable-css-colorization t)
+
 (defun latex-compile ()
   (interactive)
   (save-buffer)
   (TeX-command "LaTeX" 'TeX-master-file))
 
-(eval-after-load 'latex
-  '(define-key LaTeX-mode-map (kbd "C-x C-s") 'latex-compile))
+;; (eval-after-load 'latex
+;;   '(define-key LaTeX-mode-map (kbd "C-x C-s") 'latex-compile))
 
 (defun current-dir ()
   (cadr (split-string (pwd))))
@@ -318,7 +342,22 @@ Also turns off numbering in starred modes like *scratch*."
   (delete-frame))
 
 (global-unset-key (kbd "C-x C-c"))
-(global-set-key (kbd "C-x C-c") 'exit-to-konsole)
+(global-unset-key (kbd "C-c #"))
+
+(global-set-key (kbd "C-x C-c") 'server-edit)
+(global-set-key (kbd "C-c #") 'save-buffers-kill-terminal)
+
+
+(defun term-toggle-mode ()
+  (interactive)
+  (if (term-in-line-mode)
+      (term-char-mode)
+    (term-line-mode)))
+
+(global-set-key (kbd "C-c l") 'term-toggle-mode)
+
+(setq term-buffer-maximum-size 1024)
+
 
 (server-start)
 
@@ -330,7 +369,7 @@ Also turns off numbering in starred modes like *scratch*."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("b04425cc726711a6c91e8ebc20cf5a3927160681941e06bc7900a5a5bfe1a77f" default))))
+    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "b04425cc726711a6c91e8ebc20cf5a3927160681941e06bc7900a5a5bfe1a77f" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
