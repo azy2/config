@@ -97,22 +97,13 @@ alias restart="sudo reboot"
 
 alias locate="sudo updatedb && locate"
 
-function e {
-    nohup emacsclient --alternate-editor="" -c "$@" &> /dev/null &
-    disown
-    exit
-}
-
-function en {
-    nohup emacsclient --alternate-editor="" -c "$@" &> /dev/null &
-    disown
-}
+alias e="emacsclient"
 
 # function e {
 #     nohup emacsclient $@ &> /dev/null &
 # }
 
-export EDITOR=emacsclient
+export EDITOR="emacsclient"
 
 alias clear="clear && ls"
 
@@ -121,10 +112,12 @@ function chpwd() {
     clear
 }
 
+alias i2pc1='ssh blambet2@upcrc1.cs.illinois.edu'
+alias i2pc2='ssh blambet2@upcrc2.cs.illinois.edu'
+alias i2pc3='ssh blambet2@i2pc3.cs.illinois.edu'
+alias i2pc5='ssh blambet2@i2pc5.cs.illinois.edu'
 
 
 clear
 
 alias nondex="/home/ben/opt/nondex/bin/java -Xbootclasspath/p:/home/ben/opt/nondex.jar"
-
-eval "$(fasd --init auto)"
