@@ -41,6 +41,9 @@
     auctex
     company-math
     web-mode
+    disaster
+    visual-fill-column
+    rotate
     ))
 
 (unless package-archive-contents
@@ -58,8 +61,15 @@
 
 ;; Better Defaults
 (require 'better-defaults)
+;; Open scratch buffer by default
 (setq initial-buffer-choice t)
-(blink-cursor-mode 0)
+(setq delete-old-versions -1)
+(setq backup-directory-alist `(("." . "~/.emacs.d/backups")))
+(setq vc-follow-symlinks t)
+(setq ring-bell-function 'ignore)
+(setq coding-system-for-read 'utf-8)
+(setq coding-system-for-write 'utf-8)
+(blink-cursor-mode 1)
 (global-hl-line-mode)
 (setq-default cursor-type 'bar)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -68,30 +78,27 @@
 
 (require 'cl)
 (defvar dont-indent-modes
-  '(makefile-makepp-mode makefile-bsdmake-mode makefile-imake-mode makefile-automake-mode makefile-mode makefile-gmake-mode)
+  '(makefile-makepp-mode makefile-bsdmake-mode makefile-imake-mode makefile-automake-mode makefile-mode makefile-gmake-mode verilog-mode)
   "A list of the makefile major modes")
 
 (defun indent-whole-buffer ()
   (interactive)
   (delete-trailing-whitespace)
-  (indent-region (point-min) (point-max) nil)
-  (untabify (point-min) (point-max)))
+  (indent-region (point-min) (point-max) nil))
 (defun indent-file-when-save ()
   (make-local-variable 'after-save-hook)
   (unless (member major-mode dont-indent-modes)
     (add-hook 'after-save-hook
               (lambda ()
                 (if (buffer-file-name)
-                    (indent-whole-buffer))
-                (save-buffer)))))
+                    (indent-whole-buffer))))))
 (defun indent-file-when-visit ()
   (make-local-variable 'find-file-hook)
   (unless (member major-mode dont-indent-modes)
     (add-hook 'find-file-hook
               (lambda ()
                 (if (buffer-file-name)
-                    (indent-whole-buffer))
-                (save-buffer)))))
+                    (indent-whole-buffer))))))
 
 (add-hook 'prog-mode-hook 'indent-file-when-save)
 (add-hook 'prog-mode-hook 'indent-file-when-visit)
@@ -112,7 +119,7 @@
 (global-font-lock-mode 1)
 (setq font-lock-maximum-decoration t)
 
-(set-face-attribute 'default nil :font "DejaVu Sans Mono 14")
+(set-face-attribute 'default nil :font "DejaVu Sans Mono 22")
 
 ;; Company mode
 (require 'company)
@@ -120,7 +127,7 @@
 (setq company-idle-delay 0)
 (require 'company-c-headers)
 (add-to-list 'company-backends 'company-c-headers)
-(add-to-list 'company-c-headers-path-system "/usr/include/c++/5.3.0/")
+(add-to-list 'company-c-headers-path-system "/usr/include/c++/6.1.1/")
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-irony))
 
@@ -140,10 +147,12 @@
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
+(require 'cc-mode)
 
 ;; Irony-mode
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
 (defun my-irony-mode-hook ()
   (define-key irony-mode-map [remap completion-at-point]
     'irony-completion-at-point-async)
@@ -160,14 +169,14 @@
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (with-eval-after-load 'flycheck
   (flycheck-pos-tip-mode))
-;; (eval-after-load 'flycheck
-;;   '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
-(setq-default flycheck-disabled-checkers
-              (append flycheck-disabled-checkers
-                      '(c/c++-gcc)))
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+;; (setq-default flycheck-disabled-checkers
+;;               (append flycheck-disabled-checkers
+;;                       '(c/c++-gcc)))
 (add-hook 'c++-mode-hook (lambda ()
-                           (setq flycheck-gcc-language-standard "c++11"
-                                 flycheck-clang-language-standard "c++11"
+                           (setq flycheck-gcc-language-standard "c++1y"
+                                 flycheck-clang-language-standard "c++1y"
                                  flycheck-clang-standard-library "libc++")))
 
 ;; Smartparens
@@ -191,15 +200,15 @@
 (projectile-global-mode)
 (setq projectile-enable-caching t)
 
-(require 'cc-mode)
-(require 'semantic)
-(global-semanticdb-minor-mode 1)
-(global-semantic-idle-scheduler-mode 1)
-(add-to-list 'semantic-default-submodes
-             'global-semantic-stickyfunc-mode)
-(add-to-list 'semantic-default-submodes
-             'global-semantic-idle-summary-mode)
-(semantic-mode 1)
+
+;; (require 'semantic)
+;; (global-semanticdb-minor-mode 1)
+;; (global-semantic-idle-scheduler-mode 1)
+;; (add-to-list 'semantic-default-submodes
+;;              'global-semantic-stickyfunc-mode)
+;; (add-to-list 'semantic-default-submodes
+;;              'global-semantic-idle-summary-mode)
+;; (semantic-mode 1)
 
 (require 'srefactor)
 (require 'srefactor-lisp)
@@ -212,6 +221,7 @@
 (global-set-key (kbd "C-<return>") 'multi-term-dedicated-toggle)
 
 (defun smarter-move-beginning-of-line (arg)
+
   (interactive "^p")
   (setq arg (or arg 1))
   (when (/= arg 1)
@@ -281,8 +291,8 @@ Also turns off numbering in starred modes like *scratch*."
   '(add-to-list 'company-backends 'company-anaconda))
 
 (require 'golden-ratio)
-(golden-ratio-mode 1)
-(setq golden-ratio-auto-scale t)
+;; (golden-ratio-mode 1)
+;; (setq golden-ratio-auto-scale t)
 
 (require 'guide-key)
 (setq guide-key/guide-key-sequence t
@@ -321,6 +331,8 @@ Also turns off numbering in starred modes like *scratch*."
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
+(add-to-list 'auto-mode-alist '("\\.pro\\'" . fundamental-mode))
+
 (setq web-mode-enable-auto-pairing t)
 (setq web-mode-enable-css-colorization t)
 
@@ -328,6 +340,9 @@ Also turns off numbering in starred modes like *scratch*."
   (interactive)
   (save-buffer)
   (TeX-command "LaTeX" 'TeX-master-file))
+
+(require 'disaster)
+(define-key c-mode-base-map (kbd "C-c d") 'disaster)
 
 ;; (eval-after-load 'latex
 ;;   '(define-key LaTeX-mode-map (kbd "C-x C-s") 'latex-compile))
@@ -343,7 +358,6 @@ Also turns off numbering in starred modes like *scratch*."
 
 (global-unset-key (kbd "C-x C-c"))
 (global-unset-key (kbd "C-c #"))
-
 (global-set-key (kbd "C-x C-c") 'server-edit)
 (global-set-key (kbd "C-c #") 'save-buffers-kill-terminal)
 
@@ -358,6 +372,56 @@ Also turns off numbering in starred modes like *scratch*."
 
 (setq term-buffer-maximum-size 1024)
 
+(defun open-next-line ()
+  (interactive)
+  (end-of-line)
+  (newline-and-indent))
+
+(defun open-prior-line ()
+  (interactive)
+  (forward-line -1)
+  (open-next-line))
+
+(global-set-key (kbd "C-o") 'open-next-line)
+(global-set-key (kbd "C-S-o") 'open-prior-line)
+
+(require 'visual-fill-column)
+(add-hook 'text-mode-hook 'flyspell-mode)
+(setq visual-fill-column-width 100)
+(add-hook 'text-mode-hook 'turn-on-visual-fill-column-mode)
+
+(defun swap-with (dir)
+  (interactive)
+  (let ((other-window (window-find-other-window dir)))
+    (when other-window
+      (let* ((this-window (selected-window))
+             (this-buffer (window-buffer this-window))
+             (other-buffer (window-buffer other-window))
+             (this-start (window-start this-window))
+             (other-start (window-start other-window)))
+        (set-window-buffer this-window other-buffer)
+        (set-window-buffer other-window this-buffer)
+        (set-window-start this-window other-start)
+        (set-window-start other-window this-start)))))
+
+(global-unset-key (kbd "M-j"))
+(global-unset-key (kbd "M-k"))
+(global-unset-key (kbd "M-h"))
+(global-unset-key (kbd "M-l"))
+(global-set-key (kbd "M-j") 'windmove-down)
+(global-set-key (kbd "M-k") 'windmove-up)
+(global-set-key (kbd "M-h") 'windmove-left)
+(global-set-key (kbd "M-l") 'windmove-right)
+
+(global-unset-key (kbd "C-M-j"))
+(global-unset-key (kbd "C-M-k"))
+(global-unset-key (kbd "C-M-h"))
+(global-unset-key (kbd "C-M-l"))
+(global-set-key (kbd "C-M-j") (lambda () (interactive) (swap-with 'down)))
+(global-set-key (kbd "C-M-k") (lambda () (interactive) (swap-with 'up)))
+(global-set-key (kbd "C-M-h") (lambda () (interactive) (swap-with 'left)))
+(global-set-key (kbd "C-M-l") (lambda () (interactive) (swap-with 'right)))
+
 
 (server-start)
 
@@ -369,7 +433,8 @@ Also turns off numbering in starred modes like *scratch*."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "b04425cc726711a6c91e8ebc20cf5a3927160681941e06bc7900a5a5bfe1a77f" default))))
+    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "b04425cc726711a6c91e8ebc20cf5a3927160681941e06bc7900a5a5bfe1a77f" default)))
+ '(verilog-auto-newline nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
