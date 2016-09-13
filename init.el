@@ -44,6 +44,8 @@
     disaster
     visual-fill-column
     rotate
+    powerline
+    airline-themes
     ))
 
 (unless package-archive-contents
@@ -118,7 +120,7 @@
 
 (global-font-lock-mode 1)
 (setq font-lock-maximum-decoration t)
-
+(setq bdf-directory-list '("~/.emacs.d/local/fonts"))
 (set-face-attribute 'default nil :font "DejaVu Sans Mono 22")
 
 ;; Company mode
@@ -261,7 +263,7 @@ Also turns off numbering in starred modes like *scratch*."
   (unless (or (minibufferp)
               (member major-mode linum-disabled-modes-list)
               (string-match "*" (buffer-name))
-              (> (buffer-size) 3000000)) ;; Don't number huge files
+              (> (buffer-size) 30000)) ;; Don't number huge files
     (linum-mode 1)))
 
 (global-linum-mode t)
@@ -382,13 +384,17 @@ Also turns off numbering in starred modes like *scratch*."
   (forward-line -1)
   (open-next-line))
 
+(global-unset-key (kbd "C-o"))
+(global-unset-key (kbd "C-S-o"))
 (global-set-key (kbd "C-o") 'open-next-line)
 (global-set-key (kbd "C-S-o") 'open-prior-line)
 
 (require 'visual-fill-column)
 (add-hook 'text-mode-hook 'flyspell-mode)
 (setq visual-fill-column-width 100)
-(add-hook 'text-mode-hook 'turn-on-visual-fill-column-mode)
+(setq visual-fill-column-center-text t)
+(add-hook 'text-mode-hook 'toggle-word-wrap)
+(add-hook 'text-mode-hook 'visual-fill-column-mode)
 
 (defun swap-with (dir)
   (interactive)
@@ -422,6 +428,11 @@ Also turns off numbering in starred modes like *scratch*."
 (global-set-key (kbd "C-M-h") (lambda () (interactive) (swap-with 'left)))
 (global-set-key (kbd "C-M-l") (lambda () (interactive) (swap-with 'right)))
 
+(require 'powerline)
+(powerline-default-theme)
+(require 'airline-themes)
+(load-theme 'airline-papercolor t)
+(setq airline-helm-colors nil)
 
 (server-start)
 
@@ -433,7 +444,7 @@ Also turns off numbering in starred modes like *scratch*."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "b04425cc726711a6c91e8ebc20cf5a3927160681941e06bc7900a5a5bfe1a77f" default)))
+    ("b5fe3893c8808466711c1b55bb7e66b9c6aa2a86811783375a43e1beabb1af33" "aab598c4d024d544b4e8b356a95ca693afa9de000b154bd2f86eed68c9e75557" "86a731bda96ed5ed69980b4cbafe45614ec3c288da3b773e4585101e7ece40d2" "133222702a3c75d16ea9c50743f66b987a7209fb8b964f2c0938a816a83379a0" "878e22a7fe00ca4faba87b4f16bc269b8d2be5409d1c513bb7eda025da7c1cf4" "cadc97db0173a0d0bfc40473cab4da462af0ba8d60befd0a4879b582bcbc092d" "0788bfa0a0d0471984de6d367bb2358c49b25e393344d2a531e779b6cec260c5" "977513781c8dd86f4f0a04dbf518df5ba496da42b71173368b305478703eea42" "6998bd3671091820a6930b52aab30b776faea41449b4246fdce14079b3e7d125" "51277c9add74612c7624a276e1ee3c7d89b2f38b1609eed6759965f9d4254369" "8e7ca85479dab486e15e0119f2948ba7ffcaa0ef161b3facb8103fb06f93b428" "fbcdb6b7890d0ec1708fa21ab08eb0cc16a8b7611bb6517b722eba3891dfc9dd" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "b04425cc726711a6c91e8ebc20cf5a3927160681941e06bc7900a5a5bfe1a77f" default)))
  '(verilog-auto-newline nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

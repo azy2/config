@@ -29,6 +29,7 @@ import           XMonad.Hooks.SetWMName
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.ResizableTile
 import           XMonad.Layout.Spacing
+import           XMonad.Layout.ThreeColumns
 
 import           XMonad.Util.EZConfig        (additionalKeys)
 
@@ -51,7 +52,7 @@ myFocusFollowsMouse = True
 
 -- Width of the window border in pixels.
 --
-myBorderWidth   = 1
+myBorderWidth   = 4
 
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
@@ -97,7 +98,7 @@ myWorkspaces    = map show [1..9]
 -- Border colors for unfocused and focused windows, respectively.
 --
 myNormalBorderColor  = "#000000"
-myFocusedBorderColor = "#2DEDCD"
+myFocusedBorderColor = "#00FF00"
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -114,7 +115,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm, xK_o     ), spawn "emacsclient -c")
 
     --  Launch dmenu
-    , ((modm, xK_r     ), spawn "chromium")
+    , ((modm, xK_r     ), spawn "chromium --force-device-scale-factor=1.5")
     , ((modm, xK_l     ), spawn "dwb")
     , ((modm, xK_s     ), spawn "pavucontrol")
 
@@ -244,7 +245,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = spacing 3 $ smartBorders $ ResizableTall 1 (5/100) (1/2) [] ||| noBorders Full
+myLayout = smartBorders $ ResizableTall 1 (5/100) (1/2) [] ||| ThreeCol 1 (5/100) (1/3) ||| noBorders Full
 
 ------------------------------------------------------------------------
 -- Window rules:
@@ -327,7 +328,7 @@ myEventHook = fullscreenEventHook
 --
 myStartupHook = do
   setWMName "LG3D"
-  spawn "emacs"
+  spawn "/home/ben/bin/emacs-hidpi"
 
 
 
