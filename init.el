@@ -46,6 +46,8 @@
     rotate
     powerline
     airline-themes
+    rainbow-delimiters
+    spray
     ))
 
 (unless package-archive-contents
@@ -433,6 +435,13 @@ Also turns off numbering in starred modes like *scratch*."
 (require 'airline-themes)
 (load-theme 'airline-papercolor t)
 (setq airline-helm-colors nil)
+
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+(require 'spray)
+(setq spray-margin-top 15)
+(setq spray-margin-left 15)
 
 (server-start)
 
