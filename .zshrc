@@ -97,11 +97,11 @@ alias restart="sudo reboot"
 
 alias locate="sudo updatedb && locate"
 
-alias e="emacsclient"
+# alias e="emacsclient"
 
-# function e {
-#     nohup emacsclient $@ &> /dev/null &
-# }
+function e {
+    nohup emacsclient $@ &> /dev/null &
+}
 
 export EDITOR="emacsclient"
 
@@ -119,5 +119,3 @@ alias i2pc5='ssh blambet2@i2pc5.cs.illinois.edu'
 
 
 clear
-
-alias nondex="/home/ben/opt/nondex/bin/java -Xbootclasspath/p:/home/ben/opt/nondex.jar"

@@ -397,6 +397,7 @@ Also turns off numbering in starred modes like *scratch*."
 (setq visual-fill-column-center-text t)
 (add-hook 'text-mode-hook 'toggle-word-wrap)
 (add-hook 'text-mode-hook 'visual-fill-column-mode)
+(add-hook 'text-mode-hook 'visual-line-mode)
 
 (defun swap-with (dir)
   (interactive)
@@ -454,7 +455,8 @@ Also turns off numbering in starred modes like *scratch*."
  '(custom-safe-themes
    (quote
     ("b5fe3893c8808466711c1b55bb7e66b9c6aa2a86811783375a43e1beabb1af33" "aab598c4d024d544b4e8b356a95ca693afa9de000b154bd2f86eed68c9e75557" "86a731bda96ed5ed69980b4cbafe45614ec3c288da3b773e4585101e7ece40d2" "133222702a3c75d16ea9c50743f66b987a7209fb8b964f2c0938a816a83379a0" "878e22a7fe00ca4faba87b4f16bc269b8d2be5409d1c513bb7eda025da7c1cf4" "cadc97db0173a0d0bfc40473cab4da462af0ba8d60befd0a4879b582bcbc092d" "0788bfa0a0d0471984de6d367bb2358c49b25e393344d2a531e779b6cec260c5" "977513781c8dd86f4f0a04dbf518df5ba496da42b71173368b305478703eea42" "6998bd3671091820a6930b52aab30b776faea41449b4246fdce14079b3e7d125" "51277c9add74612c7624a276e1ee3c7d89b2f38b1609eed6759965f9d4254369" "8e7ca85479dab486e15e0119f2948ba7ffcaa0ef161b3facb8103fb06f93b428" "fbcdb6b7890d0ec1708fa21ab08eb0cc16a8b7611bb6517b722eba3891dfc9dd" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "b04425cc726711a6c91e8ebc20cf5a3927160681941e06bc7900a5a5bfe1a77f" default)))
- '(verilog-auto-newline nil))
+ '(verilog-auto-newline nil)
+ '(verilog-indent-level 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
