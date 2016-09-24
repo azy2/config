@@ -110,7 +110,11 @@ alias clear="clear && ls"
 function chpwd() {
     emulate -L zsh
     clear
+    print -P "\033AnSiTc %d"
 }
+
+print -P "\033AnSiTu %n"
+print -P "\033AnSiTc %d"
 
 alias i2pc1='ssh blambet2@upcrc1.cs.illinois.edu'
 alias i2pc2='ssh blambet2@upcrc2.cs.illinois.edu'
