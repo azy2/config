@@ -1,22 +1,18 @@
 xsetroot -cursor_name left_ptr
 setxkbmap -layout dvorak
 xmodmap /home/ben/config/dvorak
-sudo rfkill unblock all
 xset r rate 200 50
-feh --bg-scale /home/ben/Documents/dks3.png
 
-trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --height 23 --transparent true --alpha 0 --tint 0x242424 &
+trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --height 38 --transparent true --alpha 0 --tint 0x242424 --monitor primary &
 
 pasystray &
 
 dropbox &
 
-nm-applet --sm-disable &
+# xrandr --output HDMI-0 --scale 2x2 --mode 1920x1080 --fb 5760x2160 --pos 3840x0
+# xrandr --output DP-2 --scale 1x1 --mode 3840x2160 --pos 0x0
+# xrandr --output DP-2 --primary --left-of HDMI-0
 
-MONITOR=`xrandr | grep -o "HDMI1 connected"`
-if [ -n "$MONITOR" ]
-then
-    xrandr --output HDMI1 --auto --primary --left-of eDP1
-else
-    #xmodmap ~/config/laptop
-fi
+[[ -f ~/config/rofi.conf ]] && xrdb -merge -I$HOME ~/config/rofi.conf
+
+xrandr --output DP-2 --auto --primary --output HDMI-0 --off

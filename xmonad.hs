@@ -109,7 +109,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm, xK_Return), spawn "emacsclient -c \"$@\" -e \"(multi-term)\"")
 
     --  Launch dmenu
-    , ((modm, xK_e     ), spawn "rofi -show run -font \"Dejavu Sans Mono 13\" -bg \"#303030\" -fg \"a0a0a0\" -bgalt \"#232323\" -hlbg \"#a0a0a0\" -hlfg \"#303030\"")
+    , ((modm, xK_e     ), spawn "rofi -show run")
 
     --  Launch emacs
     , ((modm, xK_o     ), spawn "emacsclient -c")
