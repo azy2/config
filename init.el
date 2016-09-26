@@ -48,6 +48,7 @@
     airline-themes
     rainbow-delimiters
     spray
+    avy
     ))
 
 (unless package-archive-contents
@@ -443,6 +444,11 @@ Also turns off numbering in starred modes like *scratch*."
 (require 'spray)
 (setq spray-margin-top 15)
 (setq spray-margin-left 15)
+
+(require 'avy)
+(global-set-key (kbd "C-' C-c") 'avy-goto-char)
+(global-set-key (kbd "C-' C-w") 'avy-goto-word-0)
+(global-set-key (kbd "C-' C-l") 'avy-goto-line)
 
 (server-start)
 
