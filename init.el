@@ -80,6 +80,25 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (define-key global-map (kbd "RET") 'newline-and-indent)
 (fset 'yes-or-no-p 'y-or-n-p)
+(setq set-mark-command-repeat-pop t)
+;; (global-unset-key (kbd "C-x C-SPC"))
+;; (global-unset-key (kbd "C-u C-SPC"))
+;; (global-set-key (kbd "C-u C-SPC") 'pop-global-mark)
+(global-unset-key (kbd "C-m"))
+(global-set-key (kbd "C-m") 'pop-to-mark-command)
+(defun unpop-to-mark-command ()
+  "Unpop off mark ring. Does nothing if mark ring is empty."
+  (interactive)
+  (when mark-ring
+    (let ((pos (marker-position (car (last mark-ring)))))
+      (if (not (= (point) pos))
+          (goto-char pos)
+        (setq mark-ring (cons (copy-marker (mark-marker)) mark-ring))
+        (set-marker (mark-marker) pos)
+        (setq mark-ring (nbutlast mark-ring))
+        (goto-char (marker-position (car (last mark-ring))))))))
+(global-unset-key (kbd "M-m"))
+(global-set-key (kbd "M-m") 'unpop-to-mark-command)
 
 (require 'cl)
 (defvar dont-indent-modes
@@ -447,7 +466,7 @@ Also turns off numbering in starred modes like *scratch*."
 
 (require 'avy)
 (global-set-key (kbd "C-' C-c") 'avy-goto-char)
-(global-set-key (kbd "C-' C-w") 'avy-goto-word-0)
+(global-set-key (kbd "C-' C-w") 'avy-goto-word-1)
 (global-set-key (kbd "C-' C-l") 'avy-goto-line)
 
 (server-start)
