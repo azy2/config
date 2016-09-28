@@ -49,6 +49,8 @@
     rainbow-delimiters
     spray
     avy
+    highlight-numbers
+    color-identifiers-mode
     ))
 
 (unless package-archive-contents
@@ -84,21 +86,21 @@
 ;; (global-unset-key (kbd "C-x C-SPC"))
 ;; (global-unset-key (kbd "C-u C-SPC"))
 ;; (global-set-key (kbd "C-u C-SPC") 'pop-global-mark)
-(global-unset-key (kbd "C-m"))
-(global-set-key (kbd "C-m") 'pop-to-mark-command)
-(defun unpop-to-mark-command ()
-  "Unpop off mark ring. Does nothing if mark ring is empty."
-  (interactive)
-  (when mark-ring
-    (let ((pos (marker-position (car (last mark-ring)))))
-      (if (not (= (point) pos))
-          (goto-char pos)
-        (setq mark-ring (cons (copy-marker (mark-marker)) mark-ring))
-        (set-marker (mark-marker) pos)
-        (setq mark-ring (nbutlast mark-ring))
-        (goto-char (marker-position (car (last mark-ring))))))))
 (global-unset-key (kbd "M-m"))
-(global-set-key (kbd "M-m") 'unpop-to-mark-command)
+(global-set-key (kbd "M-m") 'pop-to-mark-command)
+;; (defun unpop-to-mark-command ()
+;;   "Unpop off mark ring. Does nothing if mark ring is empty."
+;;   (interactive)
+;;   (when mark-ring
+;;     (let ((pos (marker-position (car (last mark-ring)))))
+;;       (if (not (= (point) pos))
+;;           (goto-char pos)
+;;         (setq mark-ring (cons (copy-marker (mark-marker)) mark-ring))
+;;         (set-marker (mark-marker) pos)
+;;         (setq mark-ring (nbutlast mark-ring))
+;;         (goto-char (marker-position (car (last mark-ring))))))))
+;; (global-unset-key (kbd "M-m"))
+;; (global-set-key (kbd "M-m") 'unpop-to-mark-command)
 
 (require 'cl)
 (defvar dont-indent-modes
@@ -144,6 +146,8 @@
 (setq font-lock-maximum-decoration t)
 (setq bdf-directory-list '("~/.emacs.d/local/fonts"))
 (set-face-attribute 'default nil :font "DejaVu Sans Mono 22")
+(add-hook 'prog-mode-hook 'highlight-numbers-mode)
+(add-hook 'after-init-hook 'global-color-identifiers-mode)
 
 ;; Company mode
 (require 'company)
@@ -174,6 +178,7 @@
 (require 'cc-mode)
 
 ;; Irony-mode
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
@@ -195,13 +200,9 @@
   (flycheck-pos-tip-mode))
 (eval-after-load 'flycheck
   '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
-;; (setq-default flycheck-disabled-checkers
-;;               (append flycheck-disabled-checkers
-;;                       '(c/c++-gcc)))
-(add-hook 'c++-mode-hook (lambda ()
-                           (setq flycheck-gcc-language-standard "c++1y"
-                                 flycheck-clang-language-standard "c++1y"
-                                 flycheck-clang-standard-library "libc++")))
+(add-to-list 'flycheck-disabled-checkers 'c/c++-clang)
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")
+                           (setq flycheck-checker 'c/c++-gcc)))
 
 ;; Smartparens
 ;; (require 'smartparens-config)
@@ -421,7 +422,7 @@ Also turns off numbering in starred modes like *scratch*."
 
 (defun swap-with (dir)
   (interactive)
-  (let ((other-window (window-find-other-window dir)))
+  (let ((other-window (windmove-find-other-window dir)))
     (when other-window
       (let* ((this-window (selected-window))
              (this-buffer (window-buffer this-window))
