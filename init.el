@@ -3,10 +3,13 @@
 
 (setq gc-cons-threshold 200000000)
 
+(if (fboundp 'gnutls-available-p)
+    (fmakunbound 'gnutls-available-p))
+
 (require 'package)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("marmalade" . "https://marmalade-repo.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")))
+                         ("melpa" . "http://melpa.org/packages/")))
 (package-initialize)
 
 (defvar package-list
@@ -51,6 +54,7 @@
     avy
     highlight-numbers
     color-identifiers-mode
+    mips-mode
     ))
 
 (unless package-archive-contents
@@ -469,6 +473,9 @@ Also turns off numbering in starred modes like *scratch*."
 (global-set-key (kbd "C-' C-c") 'avy-goto-char)
 (global-set-key (kbd "C-' C-w") 'avy-goto-word-1)
 (global-set-key (kbd "C-' C-l") 'avy-goto-line)
+
+(require 'mips-mode)
+(add-to-list 'auto-mode-alist '("\\.s?\\'" . mips-mode))
 
 (server-start)
 
