@@ -268,9 +268,10 @@ myManageHook = manageSpawn <+> composeAll
     , className =? "Mathematica"    --> doFloat
     , className =? "Calculator"         --> doFloat
     , className =? "Figure" --> doFloat
+    , className =? "QEMU" --> doFloat
     , isFullscreen --> doFullFloat
     , resource =? "desktop_window" --> doIgnore
-    , fmap ("Handmade Hero" `isInfixOf`) title --> doFloat]
+    , fmap ("float" `isInfixOf`) title --> doFloat]
 
 pbManageHook = composeAll $ concat
    [ [ manageDocks ]
@@ -372,11 +373,12 @@ defaults = ewmh defaultConfig {
 
       -- hooks, layouts
         layoutHook         = avoidStruts myLayout,
-        manageHook         = pbManageHook <+> myManageHook
-                                          <+> manageDocks
-                                          <+> manageSpawn
-                                          <+> manageHook defaultConfig,
-        handleEventHook    = ewmhDesktopsEventHook,
+        -- manageHook         = pbManageHook <+> myManageHook
+        --                                   <+> manageDocks
+        --                                   <+> manageSpawn
+        --                                   <+> manageHook defaultConfig,
+        manageHook         = myManageHook,
+        handleEventHook    = ewmhDesktopsEventHook <+> myEventHook,
         logHook            = ewmhDesktopsLogHook,
         startupHook        = myStartupHook <+> ewmhDesktopsStartup
     }

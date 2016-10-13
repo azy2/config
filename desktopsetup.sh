@@ -1,4 +1,4 @@
-xsetroot -cursor_name left_ptr
+xsetroot -cursor_name left_ptr&
 setxkbmap -layout dvorak
 xmodmap /home/ben/config/dvorak
 xset r rate 200 50
@@ -8,6 +8,8 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut true --expa
 pasystray &
 
 dropbox &
+
+feh --bg-scale ~/Documents/deer.jpg
 
 # xrandr --output HDMI-0 --scale 2x2 --mode 1920x1080 --fb 5760x2160 --pos 3840x0
 # xrandr --output DP-2 --scale 1x1 --mode 3840x2160 --pos 0x0

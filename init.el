@@ -3,8 +3,8 @@
 
 (setq gc-cons-threshold 200000000)
 
-(if (fboundp 'gnutls-available-p)
-    (fmakunbound 'gnutls-available-p))
+                                        ;(if (fboundp 'gnutls-available-p)
+                                        ;    (fmakunbound 'gnutls-available-p))
 
 (require 'package)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
@@ -47,14 +47,19 @@
     disaster
     visual-fill-column
     rotate
-    powerline
+    ;; powerline
+    smart-mode-line
     airline-themes
     rainbow-delimiters
     spray
     avy
     highlight-numbers
-    color-identifiers-mode
-    mips-mode
+    ;; color-identifiers-mode
+    ;; mips-mode
+    sublimity
+    glsl-mode
+    cmake-ide
+    rtags
     ))
 
 (unless package-archive-contents
@@ -151,7 +156,7 @@
 (setq bdf-directory-list '("~/.emacs.d/local/fonts"))
 (set-face-attribute 'default nil :font "DejaVu Sans Mono 22")
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
-(add-hook 'after-init-hook 'global-color-identifiers-mode)
+;; (add-hook 'after-init-hook 'global-color-identifiers-mode)
 
 ;; Company mode
 (require 'company)
@@ -180,6 +185,11 @@
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
 (require 'cc-mode)
+
+;; (require 'rtags)
+;; (require 'cmake-ide)
+;; (setq cmake-ide-build-pool-dir "~/tmp/")
+;; (cmake-ide-setup)
 
 ;; Irony-mode
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
@@ -248,6 +258,7 @@
 (setq multi-term-dedicated-select-after-open-p t)
 (setq multi-term-dedicated-close-back-to-open-buffer-p t)
 (global-set-key (kbd "C-<return>") 'multi-term-dedicated-toggle)
+(setq-mode-local term-mode scroll-margin 0)
 
 (defun smarter-move-beginning-of-line (arg)
 
@@ -266,40 +277,40 @@
 (line-number-mode t)
 (column-number-mode t)
 
-(require 'linum)
+;; (require 'linum)
 
-(defcustom linum-disabled-modes-list '(term-mode
-                                       image-mode
-                                       compilation-mode
-                                       dired-mode
-                                       text-mode)
-  "* List of modes disabled when global linum mode is on"
-  :type '(repeat (sexp :tag "Major mode"))
-  :tag " Major modes where linum is disabled"
-  :group 'linum)
+;; (defcustom linum-disabled-modes-list '(term-mode
+;;                                        image-mode
+;;                                        compilation-mode
+;;                                        dired-mode
+;;                                        text-mode)
+;;   "* List of modes disabled when global linum mode is on"
+;;   :type '(repeat (sexp :tag "Major mode"))
+;;   :tag " Major modes where linum is disabled"
+;;   :group 'linum)
 
-(defcustom linum-disabled-starred-buffers 't
-  "* Disable buffers that have stars in them like *Gnu Emacs*"
-  :type 'boolean
-  :group 'linum)
+;; (defcustom linum-disabled-starred-buffers 't
+;;   "* Disable buffers that have stars in them like *Gnu Emacs*"
+;;   :type 'boolean
+;;   :group 'linum)
 
-(defun linum-on ()
-  "* When linum is running globally, disable line numbers in modes
-defined in `linum-disabled-modes-list'. Changed by linum-off.
-Also turns off numbering in starred modes like *scratch*."
-  (unless (or (minibufferp)
-              (member major-mode linum-disabled-modes-list)
-              (string-match "*" (buffer-name))
-              (> (buffer-size) 30000)) ;; Don't number huge files
-    (linum-mode 1)))
+;; (defun linum-on ()
+;;   "* When linum is running globally, disable line numbers in modes
+;; defined in `linum-disabled-modes-list'. Changed by linum-off.
+;; Also turns off numbering in starred modes like *scratch*."
+;;   (unless (or (minibufferp)
+;;               (member major-mode linum-disabled-modes-list)
+;;               (string-match "*" (buffer-name))
+;;               (> (buffer-size) 30000)) ;; Don't number huge files
+;;     (linum-mode 1)))
 
-(global-linum-mode t)
+;; (global-linum-mode t)
 
 (setq auto-save-interval 500
-      linum-delay t
-      scroll-conservatively 10000
-      mouse-wheel-scroll-amount '(1)
-      mouse-wheel-progressive-speed nil)
+      linum-delay t)
+;; scroll-conservatively 10000
+;; mouse-wheel-scroll-amount '(1)
+;; mouse-wheel-progressive-speed nil)
 
 (require 'sh-script)
 (dolist (pattern '("\\.zsh\\'"
@@ -456,11 +467,13 @@ Also turns off numbering in starred modes like *scratch*."
 (global-set-key (kbd "C-M-h") (lambda () (interactive) (swap-with 'left)))
 (global-set-key (kbd "C-M-l") (lambda () (interactive) (swap-with 'right)))
 
-(require 'powerline)
-(powerline-default-theme)
-(require 'airline-themes)
-(load-theme 'airline-papercolor t)
-(setq airline-helm-colors nil)
+;; (require 'powerline)
+;; (powerline-default-theme)
+;; (powerline-raw mode-line-mule-info nil 'l)
+;; (require 'airline-themes)
+;; (load-theme 'airline-papercolor t)
+;; (setq airline-helm-colors nil)
+(sml/setup)
 
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
@@ -474,8 +487,38 @@ Also turns off numbering in starred modes like *scratch*."
 (global-set-key (kbd "C-' C-w") 'avy-goto-word-1)
 (global-set-key (kbd "C-' C-l") 'avy-goto-line)
 
+(add-to-list 'load-path "~/.emacs.d/local/emacs-mips-mode/")
 (require 'mips-mode)
 (add-to-list 'auto-mode-alist '("\\.s?\\'" . mips-mode))
+
+(add-hook 'asm-mode-set-comment-hook
+          '(lambda ()
+             (setq asm-comment-char ?#)))
+
+;; (require 'sublimity)
+;; (require 'sublimity-scroll)
+;; ;; (require 'sublimity-map)
+;; (setq sublimity-scroll-weight 20
+;;       sublimity-scroll-drift-length 10)
+;; (sublimity-mode 1)
+(setq redisplay-dont-pause t
+      scroll-margin 7
+      scroll-conservatively 10
+      scroll-preserve-screen-position 1)
+
+(require 'glsl-mode)
+(add-to-list 'auto-mode-alist '("\\.glsl\\'" . glsl-mode))
+(add-to-list 'auto-mode-alist '("\\.vert\\'" . glsl-mode))
+(add-to-list 'auto-mode-alist '("\\.frag\\'" . glsl-mode))
+(add-to-list 'auto-mode-alist '("\\.geom\\'" . glsl-mode))
+
+;; (which-function-mode)
+;; (setq which-func-unknown "")
+;; (setq-default header-line-format
+;;               '((which-func-mode ("" which-func-format " "))))
+;; (setq mode-line-misc-info
+;;       (assq-delete-all 'which-func-mode mode-line-misc-info))
+
 
 (server-start)
 
@@ -488,6 +531,9 @@ Also turns off numbering in starred modes like *scratch*."
  '(custom-safe-themes
    (quote
     ("b5fe3893c8808466711c1b55bb7e66b9c6aa2a86811783375a43e1beabb1af33" "aab598c4d024d544b4e8b356a95ca693afa9de000b154bd2f86eed68c9e75557" "86a731bda96ed5ed69980b4cbafe45614ec3c288da3b773e4585101e7ece40d2" "133222702a3c75d16ea9c50743f66b987a7209fb8b964f2c0938a816a83379a0" "878e22a7fe00ca4faba87b4f16bc269b8d2be5409d1c513bb7eda025da7c1cf4" "cadc97db0173a0d0bfc40473cab4da462af0ba8d60befd0a4879b582bcbc092d" "0788bfa0a0d0471984de6d367bb2358c49b25e393344d2a531e779b6cec260c5" "977513781c8dd86f4f0a04dbf518df5ba496da42b71173368b305478703eea42" "6998bd3671091820a6930b52aab30b776faea41449b4246fdce14079b3e7d125" "51277c9add74612c7624a276e1ee3c7d89b2f38b1609eed6759965f9d4254369" "8e7ca85479dab486e15e0119f2948ba7ffcaa0ef161b3facb8103fb06f93b428" "fbcdb6b7890d0ec1708fa21ab08eb0cc16a8b7611bb6517b722eba3891dfc9dd" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "b04425cc726711a6c91e8ebc20cf5a3927160681941e06bc7900a5a5bfe1a77f" default)))
+ '(package-selected-packages
+   (quote
+    (glsl-mode web-mode visual-fill-column use-package sublimity stickyfunc-enhance srefactor spray smex smart-mode-line rotate rainbow-delimiters projectile multiple-cursors multi-term ido-vertical-mode ido-ubiquitous highlight-numbers guide-key golden-ratio flycheck-pos-tip flycheck-irony epc disaster corral company-math company-irony company-c-headers company-anaconda color-identifiers-mode better-defaults avy auto-compile auctex async airline-themes)))
  '(verilog-auto-newline nil)
  '(verilog-indent-level 4))
 (custom-set-faces
@@ -495,4 +541,5 @@ Also turns off numbering in starred modes like *scratch*."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(header-line ((t (:background "#292929" :foreground "#cccccc" :inverse-video nil :underline nil :slant normal :weight normal)))))
+ '(header-line ((t (:background "#292929" :foreground "#cccccc" :inverse-video nil :underline nil :slant normal :weight normal))))
+ '(which-func ((t (:foreground "white")))))

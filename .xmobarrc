@@ -1,5 +1,5 @@
 Config {
-       font = "xft:DejaVu Sans Mono:size=12:antialias=true"
+       font = "xft:DejaVu Sans Mono:size=22:antialias=true"
        , bgColor = "#242424"
        , fgColor = "gray"
        , position = TopW L 90
@@ -7,7 +7,7 @@ Config {
                     , Run Memory ["-t","Mem: <usedratio>%","-H","80","-L","10","-l","gray90","-n","gray90","-h","#F25555"] 10
                     , Run Date "%a %b %_d %I:%M %p" "date" 10
                     , Run DynNetwork ["-t","Net: +<rx>, -<tx>","-H","200","-L","10","-h","gray90","-l","gray90","-n","gray90"] 10
-                    , Run CoreTemp ["-t", "Temp: <core1> <core2>", "-L", "40", "-H", "75", "-l", "lightblue", "-n", "gray90", "-h", "#F25555"] 50
+                    , Run CoreTemp ["-t", "Temp: <core1>", "-L", "40", "-H", "75", "-l", "lightblue", "-n", "gray90", "-h", "#F25555"] 50
                     , Run Com "network-check.sh" [] "netcheck" 5
                     -- battery monitor
                     , Run Battery        [ "--template" , "Batt: <acstatus>"
@@ -29,5 +29,5 @@ Config {
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %cpu% | %coretemp% | %memory% | %battery% | %dynnetwork% (%netcheck%) | <fc=#69DFFA>%date%</fc>"
+       , template = "%StdinReader% }{ %cpu% | %coretemp% | %memory% | <fc=#69DFFA>%date%</fc>"
        }
