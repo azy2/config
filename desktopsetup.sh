@@ -9,7 +9,7 @@ pasystray &
 
 dropbox &
 
-feh --bg-scale ~/Documents/deer.jpg
+feh --bg-scale ~/Documents/blue-abstract-uhd-wallpaper_1.jpg
 
 # xrandr --output HDMI-0 --scale 2x2 --mode 1920x1080 --fb 5760x2160 --pos 3840x0
 # xrandr --output DP-2 --scale 1x1 --mode 3840x2160 --pos 0x0
@@ -17,4 +17,4 @@ feh --bg-scale ~/Documents/deer.jpg
 
 [[ -f ~/config/rofi.conf ]] && xrdb -merge -I$HOME ~/config/rofi.conf
 
-xrandr --output DP-2 --auto --primary --output HDMI-0 --off
+xrandr --output DP-4 --primary --auto --output DP-2 --auto --right-of DP-4

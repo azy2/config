@@ -30,6 +30,7 @@ import           XMonad.Layout.NoBorders
 import           XMonad.Layout.ResizableTile
 import           XMonad.Layout.Spacing
 import           XMonad.Layout.ThreeColumns
+import           XMonad.Layout.BinarySpacePartition
 
 import           XMonad.Util.EZConfig        (additionalKeys)
 
@@ -98,7 +99,7 @@ myWorkspaces    = map show [1..9]
 -- Border colors for unfocused and focused windows, respectively.
 --
 myNormalBorderColor  = "#000000"
-myFocusedBorderColor = "#00FF00"
+myFocusedBorderColor = "#AAFFFF"
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -115,7 +116,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm, xK_o     ), spawn "emacsclient -c")
 
     --  Launch dmenu
-    , ((modm, xK_r     ), spawn "chromium --force-device-scale-factor=1.5")
+    , ((modm, xK_r     ), spawn "chromium --force-device-scale-factor=1.25")
     , ((modm, xK_l     ), spawn "dwb")
     , ((modm, xK_s     ), spawn "pavucontrol")
 
@@ -134,10 +135,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
 
     -- Resize viewed windows to the correct size
-    , ((modm,               xK_p     ), refresh)
+    --, ((modm,               xK_p     ), refresh)
 
     -- Move focus to the next window
-    , ((modm,               xK_Tab   ), windows W.focusDown)
+    --, ((modm,               xK_Tab   ), windows W.focusDown)
 
     -- Move focus to the next window
     , ((modm,               xK_h     ), windows W.focusDown)
@@ -146,7 +147,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_t     ), windows W.focusUp  )
 
     -- Swap the focused window and the master window
-    , ((modm .|. shiftMask, xK_Return), windows W.swapMaster)
+    --, ((modm .|. shiftMask, xK_Return), windows W.swapMaster)
 
     -- Swap the focused window with the next window
     , ((modm .|. shiftMask, xK_h     ), windows W.swapDown  )
@@ -154,30 +155,42 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Swap the focused window with the previous window
     , ((modm .|. shiftMask, xK_t     ), windows W.swapUp    )
 
+    , ((modm, xK_g ), sendMessage $ MoveSplit U)
+
+    , ((modm, xK_m), sendMessage $ MoveSplit D)
+
+    , ((modm, xK_d), sendMessage $ MoveSplit L)
+
+    , ((modm, xK_n), sendMessage $ MoveSplit R)
+
+    , ((modm, xK_f), sendMessage $ Rotate)
+
+    , ((modm, xK_c), sendMessage $ Swap)
+
     -- Shrink the master area
-    , ((modm,               xK_d     ), sendMessage Shrink)
+    --, ((modm,               xK_d     ), sendMessage Shrink)
 
     -- Expand the master area
-    , ((modm,               xK_n     ), sendMessage Expand)
+    --, ((modm,               xK_n     ), sendMessage Expand)
 
-    , ((modm,               xK_g     ), sendMessage MirrorExpand)
+    --, ((modm,               xK_g     ), sendMessage MirrorExpand)
 
-    , ((modm,               xK_m     ), sendMessage MirrorShrink)
+    --, ((modm,               xK_m     ), sendMessage MirrorShrink)
 
     -- Push window back into tiling
     , ((modm,               xK_y     ), withFocused $ windows . W.sink)
 
     -- Increment the number of windows in the master area
-    , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
+    --, ((modm              , xK_comma ), sendMessage (IncMasterN 1))
 
     -- Deincrement the number of windows in the master area
-    , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
+    --, ((modm              , xK_period), sendMessage (IncMasterN (-1)))
 
     -- Toggle the status bar gap
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
     --
-    -- , ((modm              , xK_b     ), sendMessage ToggleStruts)
+    , ((modm              , xK_z     ), sendMessage ToggleStruts)
 
     -- Quit xmonad
     , ((modm .|. shiftMask, xK_a     ), io (exitWith ExitSuccess))
@@ -245,7 +258,8 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = smartBorders $ ResizableTall 1 (5/100) (1/2) [] ||| ThreeCol 1 (5/100) (1/3) ||| noBorders Full
+-- myLayout = smartBorders $ spacing 8 $ ResizableTall 1 (5/100) (1/2) [] ||| ThreeCol 1 (5/100) (1/3) ||| noBorders Full
+myLayout = smartBorders $ spacing 8 $ emptyBSP ||| noBorders Full
 
 ------------------------------------------------------------------------
 -- Window rules:

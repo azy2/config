@@ -154,7 +154,7 @@
 (global-font-lock-mode 1)
 (setq font-lock-maximum-decoration t)
 (setq bdf-directory-list '("~/.emacs.d/local/fonts"))
-(set-face-attribute 'default nil :font "DejaVu Sans Mono 22")
+(set-face-attribute 'default nil :font "DejaVu Sans Mono 20")
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
 ;; (add-hook 'after-init-hook 'global-color-identifiers-mode)
 
@@ -217,6 +217,12 @@
 (add-to-list 'flycheck-disabled-checkers 'c/c++-clang)
 (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")
                            (setq flycheck-checker 'c/c++-gcc)))
+
+(add-hook 'c-mode-hook (lambda ()
+                         (setq flycheck-checker 'c/c++-gcc)
+                         (setq flycheck-c/c++-gcc-executable "/home/ben/opt/i686-gcc/bin/i686-elf-gcc")
+                         (setq flycheck-gcc-include-path '("/home/ben/projects/myos/sysroot/usr/include/" "/home/ben/projects/myos/kernel/include/" "/home/ben/opt/i686-gcc/lib/gcc/i686-elf/6.2.0/include/"))
+                         (setq flycheck-gcc-args '("-ffreestanding" "-nostdlib" "-lk" "-lgcc"))))
 
 ;; Smartparens
 ;; (require 'smartparens-config)
@@ -501,10 +507,10 @@
 ;; (setq sublimity-scroll-weight 20
 ;;       sublimity-scroll-drift-length 10)
 ;; (sublimity-mode 1)
-(setq redisplay-dont-pause t
-      scroll-margin 7
-      scroll-conservatively 10
-      scroll-preserve-screen-position 1)
+(setq ;redisplay-dont-pause t
+                                        ;scroll-margin 7
+ scroll-conservatively 10
+ scroll-preserve-screen-position 1)
 
 (require 'glsl-mode)
 (add-to-list 'auto-mode-alist '("\\.glsl\\'" . glsl-mode))
