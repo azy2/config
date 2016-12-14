@@ -7,6 +7,7 @@
                                         ;    (fmakunbound 'gnutls-available-p))
 
 (require 'package)
+(setq package-check-signature nil)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("marmalade" . "https://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
@@ -60,6 +61,8 @@
     glsl-mode
     cmake-ide
     rtags
+    csharp-mode
+    omnisharp
     ))
 
 (unless package-archive-contents
@@ -381,6 +384,11 @@
 
 (setq web-mode-enable-auto-pairing t)
 (setq web-mode-enable-css-colorization t)
+
+(add-to-list 'auto-mode-alist '("\\.cs?\\'" . csharp-mode))
+(add-hook 'csharp-mode-hook 'omnisharp-mode)
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-omnisharp))
 
 (defun latex-compile ()
   (interactive)

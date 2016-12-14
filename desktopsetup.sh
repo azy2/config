@@ -3,7 +3,7 @@ setxkbmap -layout dvorak
 xmodmap /home/ben/config/dvorak
 xset r rate 200 50
 
-trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --height 38 --transparent true --alpha 0 --tint 0x242424 --monitor primary &
+#trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --height 38 --transparent true --alpha 0 --tint 0x242424 --monitor primary &
 
 pasystray &
 
