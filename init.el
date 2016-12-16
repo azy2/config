@@ -157,7 +157,7 @@
 (global-font-lock-mode 1)
 (setq font-lock-maximum-decoration t)
 (setq bdf-directory-list '("~/.emacs.d/local/fonts"))
-(set-face-attribute 'default nil :font "DejaVu Sans Mono 20")
+(set-face-attribute 'default nil :font "DejaVu Sans Mono 16")
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
 ;; (add-hook 'after-init-hook 'global-color-identifiers-mode)
 
@@ -501,9 +501,9 @@
 (global-set-key (kbd "C-' C-w") 'avy-goto-word-1)
 (global-set-key (kbd "C-' C-l") 'avy-goto-line)
 
-(add-to-list 'load-path "~/.emacs.d/local/emacs-mips-mode/")
-(require 'mips-mode)
-(add-to-list 'auto-mode-alist '("\\.s?\\'" . mips-mode))
+;; (add-to-list 'load-path "~/.emacs.d/local/emacs-mips-mode/")
+;; (require 'mips-mode)
+;; (add-to-list 'auto-mode-alist '("\\.s?\\'" . mips-mode))
 
 (add-hook 'asm-mode-set-comment-hook
           '(lambda ()
