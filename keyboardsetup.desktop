@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=KeyboardSetup
+GenericName=Sets up keyboard for programming
+Comment=Sets up keyboard for programming
+Exec=/home/ben/config/keyboard
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true
