@@ -1,16 +1,16 @@
-(keyboard-translate ?\C-x ?\C-u)
-(keyboard-translate ?\C-u ?\C-x)
+(define-key key-translation-map [?\C-x] [?\C-u])
+(define-key key-translation-map [?\C-u] [?\C-x])
 
 (setq gc-cons-threshold 200000000)
 
-                                        ;(if (fboundp 'gnutls-available-p)
-                                        ;    (fmakunbound 'gnutls-available-p))
+;;(if (fboundp 'gnutls-available-p)
+;;(fmakunbound 'gnutls-available-p))
 
 (require 'package)
 (setq package-check-signature nil)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("marmalade" . "https://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")))
+                         ("melpa" . "https://melpa.org/packages/")))
 (package-initialize)
 
 (defvar package-list
@@ -63,6 +63,8 @@
     rtags
     csharp-mode
     omnisharp
+    intero
+    solarized-theme
     ))
 
 (unless package-archive-contents
@@ -151,14 +153,16 @@
 (global-set-key "\M-;" 'comment-or-uncomment-region-or-line)
 
 ;; Color Theme
-(add-to-list 'custom-theme-load-path "~/.emacs.d/local/noctilux-theme")
-(load-theme 'noctilux t)
+;; (add-to-list 'custom;; -theme-load-path "~/.emacs.d/local/noctilux-theme")
+;; (load-theme 'noctilux t)
+(load-theme 'solarized-dark t)
 
 (global-font-lock-mode 1)
 (setq font-lock-maximum-decoration t)
-(setq bdf-directory-list '("~/.emacs.d/local/fonts"))
-(set-face-attribute 'default nil :font "DejaVu Sans Mono 16")
-(add-hook 'prog-mode-hook 'highlight-numbers-mode)
+(setq default-frame-alist '((font . "DejaVu Sans Mono 14")))
+;; (setq bdf-directory-list '("~/.emacs.d/local/fonts"))
+;; (set-face-attribute 'default nil :font "DejaVu Sans Mono 16")
+;; (add-hook 'prog-mode-hook 'highlight-numbers-mode)
 ;; (add-hook 'after-init-hook 'global-color-identifiers-mode)
 
 ;; Company mode
@@ -288,7 +292,7 @@
 
 ;; (require 'linum)
 
-;; (defcustom linum-disabled-modes-list '(term-mode
+;; (defcustom lninum-disabled-modes-list '(term-mode
 ;;                                        image-mode
 ;;                                        compilation-mode
 ;;                                        dired-mode
@@ -533,8 +537,7 @@
 ;; (setq mode-line-misc-info
 ;;       (assq-delete-all 'which-func-mode mode-line-misc-info))
 
-
-(server-start)
+(add-hook 'haskell-mode-hook 'intero-mode)
 
 (provide 'init)
 (custom-set-variables
