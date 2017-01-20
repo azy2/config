@@ -1,0 +1,243 @@
+; [settings]
+; throttle-ms = 50
+; throttle-limit = 3
+
+[colors]
+accent = #e60053
+
+[bar/primary]
+monitor = DP-4
+width = 100%
+height = 48
+clickareas = 35
+
+background = #2F343F
+foreground = #ccffffff
+; linecolor = ${bar/bottom.background}
+
+spacing = 1
+;spacing = 2
+; lineheight = 16
+; padding-right = 0
+module-margin-left = 2
+module-margin-right = 2
+;module-margin-left = 1
+;module-margin-right = 1
+
+;font-0 = envypn:pixelsize=13;0
+font-0 = DejaVu Sans Mono:size=10;0
+font-1 = Material Icons:size=14;0
+font-2 = FontAwesome:size=12;0
+
+; tray-position = right
+; tray-maxsize = 32
+
+override-redirect = false
+wm-restack = bspwm
+; modules-left = powermenu mpd
+; modules-right = volume backlight wireless-network wired-network battery date
+modules-left = bspwm
+modules-center = title
+modules-right = volume cpu memory date
+
+[bar/secondary]
+monitor = DP-2
+width = 100%
+height = 48
+clickareas = 35
+
+background = #2F343F
+foreground = #ccffffff
+; linecolor = ${bar/bottom.background}
+
+spacing = 1
+;spacing = 2
+; lineheight = 16
+; padding-right = 0
+module-margin-left = 2
+module-margin-right = 2
+;module-margin-left = 1
+;module-margin-right = 1
+
+;font-0 = envypn:pixelsize=13;0
+font-0 = DejaVu Sans Mono:size=10;0
+font-1 = Material Icons:size=12;0
+font-2 = Font Awesome:size=12;0
+
+tray-position = right
+tray-maxsize = 32
+tray-background = #2F343F
+
+override-redirect = false
+wm-restack = bspwm
+; modules-left = powermenu mpd
+; modules-right = volume backlight wireless-network wired-network battery date
+modules-left = bspwm
+modules-center = title
+modules-right = date
+
+[module/bspwm]
+type = internal/bspwm
+
+enable-scroll = false
+pin-workspaces = true
+enable-click = true
+inline-mode = false
+
+format = <label-state> <label-mode>
+
+
+label-focused = %index%
+label-focused-background = #2176FF
+; label-focused-underline= #1C64D8
+label-focused-padding = 1
+
+label-dimmed-focused = %index%
+label-dimmed-focused-background = #404552
+; label-dimmed-focused-underline= #cc333333
+label-dimmed-focused-padding = 1
+
+label-occupied = %index%
+label-occupied-padding = 1
+
+label-urgent = %index%
+label-urgent-background = #e60053
+label-urgent-padding = 1
+
+label-empty =
+label-empty-foreground =
+label-empty-padding =
+
+label-monocle = 
+label-tiled = 
+label-fullscreen = 
+label-floating = 
+label-pseudotiled = P
+label-locked = 
+label-locked-foreground = #bd2c40
+label-sticky = 
+label-sticky-foreground = #fba922
+label-private = 
+label-private-foreground = #bd2c40
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+format = <label> <ramp-coreload>
+label = 
+
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 2
+ramp-coreload-0-foreground = #aaff77
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 2
+ramp-coreload-1-foreground = #aaff77
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 2
+ramp-coreload-2-foreground = #aaff77
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 2
+ramp-coreload-3-foreground = #aaff77
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 2
+ramp-coreload-4-foreground = #fba922
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 2
+ramp-coreload-5-foreground = #fba922
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 2
+ramp-coreload-6-foreground = #ff5555
+ramp-coreload-7 = █
+ramp-coreload-7-font = 2
+ramp-coreload-7-foreground = #ff5555
+
+[module/date]
+type = internal/date
+date =  %A, %b. %d   %I:%M %p
+; date = %A, %b. %d %H:%M
+time =  %I:%M %p
+interval = 5
+; format-font = 1
+; format-padding = 1
+
+; type = internal/date
+; date = %a, %b %d %Y  %I:%M:%S
+; date = %%{F#fff}%A, %d %B %Y  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}
+
+[module/title]
+type = internal/xwindow
+label = %title%
+
+[module/memory]
+type = internal/memory
+format = <label>
+label =  %gb_used%/%gb_free%
+
+; bar-used-width = 30
+; bar-used-foreground-0 = #aaff77
+; bar-used-foreground-1 = #aaff77
+; bar-used-foreground-2 = #fba922
+; bar-used-foreground-3 = #ff5555
+; bar-used-indicator = |
+; bar-used-indicator-font = 6
+; bar-used-indicator-foreground = #ff
+; bar-used-fill = ─
+; bar-used-fill-font = 6
+; bar-used-empty = ─
+; bar-used-empty-font = 6
+; bar-used-empty-foreground = #444444
+
+; [module/mpd]
+; type = internal/mpd
+; format-online = <icon-prev> <icon-stop> <toggle> <icon-next>  <icon-repeat> <icon-random>  <bar-progress> <label-time>  <label-song>
+; label-offline = 🎜 mpd is offline
+
+; icon-play = 
+; icon-pause = 
+; icon-stop = 
+; icon-prev = 
+; icon-next = 
+; icon-random = 
+; icon-repeat = 
+
+; toggle-on-foreground =
+; toggle-off-foreground = #55
+
+; bar-progress-width = 45
+; bar-progress-format = %{A4:mpdseek+2: A5:mpdseek-2:}%fill%%indicator%%empty%%{A A}
+; bar-progress-indicator = |
+; bar-progress-indicator-foreground = #ff
+; bar-progress-indicator-font = 3
+; bar-progress-fill = ─
+; bar-progress-fill-foreground = #bb
+; bar-progress-fill-font = 3
+; bar-progress-empty = ─
+; bar-progress-empty-font = 3
+; bar-progress-empty-foreground = #44
+
+; [module/wired-network]
+; type = internal/network
+; interface = enp0s31f6
+; interval = 3.0
+
+; label-connected =    %{T3}%local_ip%%{T-}
+; label-disconnected-foreground = #66
+
+[module/volume]
+type = internal/volume
+; speaker-mixer = Speaker
+headphone-mixer = Headphone
+headphone-id = 39
+
+format-volume = <ramp-volume> <label-volume>
+; label-muted =   muted
+label-muted = 
+; label-muted-foreground = #66
+
+ramp-volume-font = 2
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+
+; vim:ft=dosini

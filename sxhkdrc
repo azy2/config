@@ -7,18 +7,21 @@ super + Return
 	emacsclient -c -e "(multi-term)"
 
 super + o
-	emacs
+	emacsclient -c
 
 # program launcher
 super + e
 	rofi -show run
 
 super + r
-      chromium --force-device-scale-factor=1.25
+      google-chrome-stable --force-device-scale-factor=1.25
 
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
+
+super + l
+      xkb-switch -n
 
 #
 # bspwm hotkeys
@@ -69,8 +72,8 @@ super + space
 # 	bspc node -f @{parent,brother,first,second}
 
 # # focus the next/previous node
-super + {h, t}
-	bspc node -f {next,prev}
+super + {_, shift + } {h, t}
+	bspc node -{f,s} {next,prev}.local
 
 # # focus the next/previous desktop
 # super + bracket{left,right}
@@ -87,8 +90,8 @@ super + {h, t}
 # 	bspc wm -h on
 
 # # focus or send to the given desktop
-# super + {_,shift + }{1-9,0}
-# 	bspc {desktop -f,node -d} '^{1-9,10}'
+super + {_,shift + }{exclam, at, braceleft, braceright, percent, asciicircum, ampersand, asterisk, parenleft, parenright}
+      bspc {desktop -f, node -d} '^{1-9,10}'
 
 # #
 # # preselect
@@ -125,3 +128,12 @@ super + {h, t}
 # # move a floating window
 # super + {Left,Down,Up,Right}
 # 	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+XF86AudioRaiseVolume
+        pulseaudio-ctl up 5
+
+XF86AudioLowerVolume
+        pulseaudio-ctl down 5
+
+XF86AudioMute
+        pulseaudio-ctl mute
