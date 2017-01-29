@@ -41,8 +41,11 @@ typeset -gU cdpath fpath mailpath path
 path=(
     /usr/local/{bin,sbin}
     /opt/JetBrains/Toolbox/bin
+    /home/ben/bin/
     $path
 )
+
+export RANGER_LOAD_DEFAULT_RC=FALSE
 
 #
 # Less

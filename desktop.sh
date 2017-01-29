@@ -16,6 +16,7 @@ feh --bg-scale ~/Pictures/mountain_overlook.jpg
 # xrandr --output DP-2 --primary --left-of HDMI-0
 
 [[ -f ~/config/rofi.conf ]] && xrdb -merge -I$HOME ~/config/rofi.conf
+xrdb -merge ~/.Xresources
 
 xrandr --output DP-4 --primary --auto --output DP-2 --auto --right-of DP-4
 
