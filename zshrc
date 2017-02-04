@@ -17,12 +17,13 @@ alias off="sudo shutdown -h now"
 alias restart="sudo reboot"
 
 function e {
-    nohup emacsclient -c $@ &>/dev/null &
+    nohup emacsclient -c -F "((fullscreen . maximized))" $@ &>/dev/null &
     disown
-    exit
 }
 
-export EDITOR="e"
+alias en="emacsclient"
+
+export EDITOR="emacsclient"
 
 # alias ls="ls -h "
 
@@ -31,6 +32,14 @@ alias clear="clear && ls"
 function chpwd() {
     emulate -L zsh
     clear
+    if [ -n "$INSIDE_EMACS" ]; then
+        print -P "\033AnSiTc %d"
+    fi
 }
+
+if [ -n "$INSIDE_EMACS" ]; then
+    print -P "\033AnSiTu %n"
+    print -P "\033AnSiTc %d"
+fi
 
 clear

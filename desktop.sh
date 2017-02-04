@@ -1,4 +1,4 @@
-xsetroot -cursor_name left_ptr&
+#xsetroot -cursor_name left_ptr&
 #setxkbmap -layout dvorak
 # xmodmap /home/ben/config/dvorak
 xset r rate 200 50
@@ -7,17 +7,17 @@ xset r rate 200 50
 
 # pasystray &
 
-dropbox &
+#dropbox &
 
-feh --bg-scale ~/Pictures/mountain_overlook.jpg
+#feh --bg-scale ~/Pictures/mountain_overlook.jpg
 
 # xrandr --output HDMI-0 --scale 2x2 --mode 1920x1080 --fb 5760x2160 --pos 3840x0
 # xrandr --output DP-2 --scale 1x1 --mode 3840x2160 --pos 0x0
 # xrandr --output DP-2 --primary --left-of HDMI-0
 
 [[ -f ~/config/rofi.conf ]] && xrdb -merge -I$HOME ~/config/rofi.conf
-xrdb -merge ~/.Xresources
+#xrdb -merge ~/.Xresources
 
-xrandr --output DP-4 --primary --auto --output DP-2 --auto --right-of DP-4
+#xrandr --output DP-4 --primary --auto --output DP-2 --auto --right-of DP-4
 
 emacs --daemon
