@@ -21,9 +21,11 @@ function e {
     disown
 }
 
-alias en="emacsclient"
+function en {
+    nohup emacsclient $@ &>/dev/null &
+}
 
-export EDITOR="emacsclient"
+export EDITOR="/home/ben/bin/ec"
 
 # alias ls="ls -h "
 

@@ -1,9 +1,9 @@
 Put the following in /usr/share/X11/xkb/symbols/us
 
 partial alphanumeric_keys
-xkb_symbols "dvorak-prog" {
+xkb_symbols "dvorak-custom" {
 
-name[Group1]= "English (Dvorak) Programming";
+name[Group1]= "English (Dvorak) Custom";
 
 key <TLDE> { [       dollar,    asciitilde, dollar, dead_tilde	] };
 
@@ -63,7 +63,7 @@ Then put the following in /usr/share/X11/xkb/rules/evdev.xml
 
 <variant>
 <configItem>
-<name>dvorak-prog</name>
-<description>English (Dvorak) Programming</description>
+<name>dvorak-custom</name>
+<description>English (Dvorak) Custom</description>
 </configItem>
 </variant>
