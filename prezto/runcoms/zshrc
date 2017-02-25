@@ -17,15 +17,18 @@ alias off="sudo shutdown -h now"
 alias restart="sudo reboot"
 
 function e {
-    nohup emacsclient -c -F "((fullscreen . maximized))" $@ &>/dev/null &
+    SOCKET_FILE=$(lsof -c emacs | grep server | tr -s " " | cut -d' ' -f9 | head -1)
+    if [[ -n $(pgrep emacsclient) ]]; then
+        nohup emacsclient -a '' -s $SOCKET_FILE $@ &>/dev/null &
+    else
+        nohup emacsclient -c -a '' -F "((fullscreen . maximized))" -s $SOCKET_FILE $@ &> /dev/null &
+    fi
     disown
 }
 
-function en {
-    nohup emacsclient $@ &>/dev/null &
-}
+alias en="emacsclient"
 
-export EDITOR="/home/ben/bin/ec"
+export EDITOR="emacsclient"
 
 # alias ls="ls -h "
 

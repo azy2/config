@@ -42,10 +42,9 @@ path=(
     /usr/local/{bin,sbin}
     /opt/JetBrains/Toolbox/bin
     /home/ben/bin/
+    /home/ben/config/
     $path
 )
-
-export RANGER_LOAD_DEFAULT_RC=FALSE
 
 #
 # Less
