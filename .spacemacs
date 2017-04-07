@@ -72,6 +72,7 @@ values."
    '(
      multi-term
      intero
+     multiple-cursors
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -119,7 +120,7 @@ values."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'hybrid
+   dotspacemacs-editing-style 'emacs
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
@@ -177,10 +178,7 @@ values."
    ;; In the terminal, these pairs are generally indistinguishable, so this only
    ;; works in the GUI. (default nil)
    dotspacemacs-distinguish-gui-tab nil
-   ;; If non nil `Y' is remapped to `y$' in Evil states. (default nil)
-   dotspacemacs-remap-Y-to-y$ nil
-   ;; If non-nil, the shift mappings `<' and `>' retain visual state if used
-   ;; there. (default t)
+   ;; If non nil `Y' is remapped to `y$' in Evil states. (default  (default t)
    dotspacemacs-retain-visual-state-on-shift t
    ;; If non-nil, J and K move lines up and down when in visual mode.
    ;; (default nil)
@@ -300,26 +298,11 @@ values."
    dotspacemacs-whitespace-cleanup nil
    ))
 
-(defun dotspacemacs/user-init ()
-  "Initialization function for user code.
-It is called immediately after `dotspacemacs/init', before layer configuration
-executes.
- This function is mostly useful for variables that need to be set
-before packages are loaded. If you are unsure, you should try in setting them in
-`dotspacemacs/user-config' first."
-  (setq-default c-basic-offset 4)
-  (setq c-default-style '((java-mode . "java")
-                          (awk-mode . "awk")
-                          (other . "k&r")))
-  )
-
-
-
-;; (defun exit-to-terminal ()
-;;   (interactive)
-;;   (shell-command (concat "nohup gnome-terminal --working-directory=" (cadr (split-string (pwd))) " &>/dev/null &"))
-;;   (shell-command "disown")
-;;   (delete-frame))
+(defun term-toggle-mode ()
+  (interactive)
+  (if (term-in-line-mode)
+      (term-char-mode)
+    (term-line-mode)))
 
 (defun comment-or-uncomment-region-or-line ()
   (interactive)
@@ -339,6 +322,29 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (save-buffer)
   (recompile))
 
+(defun dotspacemacs/user-init ()
+  "Initialization function for user code.
+It is called immediately after `dotspacemacs/init', before layer configuration
+executes.
+ This function is mostly useful for variables that need to be set
+before packages are loaded. If you are unsure, you should try in setting them in
+`dotspacemacs/user-config' first."
+
+  ;; (spacemacs/toggle-evil-cleverparens-on)
+  ;; (add-hook 'prog-mode-hook #'evil-cleverparens-mode)
+
+  ;; (global-unset-key (kbd "C-x C-c"))
+  ;; (global-set-key (kbd "C-x C-c") 'exit-to-terminal)
+  )
+
+;; (defun exit-to-terminal ()
+;;   (interactive)
+;;   (shell-command (concat "nohup gnome-terminal --working-directory=" (cadr (split-string (pwd))) " &>/dev/null &"))
+;;   (shell-command "disown")
+;;   (delete-frame))
+
+
+
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
@@ -346,18 +352,28 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (require 'cc-mode)
+  (require 'multi-term)
+
+  (global-unset-key (kbd "C-t"))
+  (global-set-key (kbd "C-t") 'other-window)
+  (add-to-list 'term-unbind-key-list "C-t")
+  (define-key term-raw-map (kbd "C-t") 'other-window)
+
+  (global-set-key "\M-;" 'comment-or-uncomment-region-or-line)
+
+  (setq-default c-basic-offset 4)
+  (setq c-default-style '((java-mode . "java")
+                          (awk-mode . "awk")
+                          (other . "k&r")))
   (define-key key-translation-map [?\C-x] [?\C-u])
   (define-key key-translation-map [?\C-u] [?\C-x])
 
-  (spacemacs/toggle-evil-cleverparens-on)
-  (add-hook 'prog-mode-hook #'evil-cleverparens-mode)
+  (setq evil-emacs-state-cursor 'bar)
 
-  ;; (global-unset-key (kbd "C-x C-c"))
-  ;; (global-set-key (kbd "C-x C-c") 'exit-to-terminal)
+  (global-set-key (kbd "C-c l") 'term-toggle-mode)
 
   (spaceline-spacemacs-theme)
-  (global-set-key "\M-;" 'comment-or-uncomment-region-or-line)
-  (add-hook 'haskell-mode-hook 'intero-mode)
 
   (add-to-list 'auto-mode-alist '("\\.\\(asm\\|s\\|S\\)" . asm-mode))
   (add-hook 'asm-mode-hook (lambda ()
@@ -371,6 +387,12 @@ you should place your code here."
   (define-key c-mode-map (kbd "M-c") 'save-and-compile)
   (define-key c-mode-map (kbd "M-p") 'previous-error)
   (define-key c-mode-map (kbd "M-n") 'next-error)
+
+  (add-hook 'haskell-mode-hook 'intero-mode)
+
+  (require 'multiple-cursors)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
