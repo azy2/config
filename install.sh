@@ -7,7 +7,7 @@ sudo apt install -y zsh emacs25 git vim keepassx firefox
 git clone git@github.com:azy2/config.git ~/config
 
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-ln -s /home/ben/config/.spacemacs /home/ben/.spacemacs
+ln -s /home/ben/config/spacemacs /home/ben/.spacemacs
 emacs&
 
 git clone --recursive git@github.com:azy2/prezto.git ~/.zprezto
