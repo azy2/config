@@ -10,8 +10,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'roxma/nvim-completion-manager'
 Plug 'roxma/ncm-clang'
 Plug 'Shougo/neco-vim'
-
-Plug 'arakashic/chromatica.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'racer-rust/vim-racer'
+Plug 'roxma/nvim-cm-racer'
 
 Plug 'w0rp/ale'
 
@@ -27,6 +27,8 @@ Plug 'terryma/vim-multiple-cursors'
 
 Plug 'yggdroot/indentline'
 
+Plug 'rust-lang/rust.vim'
+
 call plug#end()
 
 set nocompatible
@@ -40,11 +42,8 @@ set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
 let g:airline_theme='solarized'
 let g:airline#extensions#tabline#enabled=1
 
-let g:chromatica#libclang_path = '/usr/lib/llvm-4.0/lib/libclang.so'
-let g:chromatica#enable_at_startup=1
-let g:chromatica#highlight_feature_level = 1
-
 let g:ale_sign_column_always = 1
+let g:ale_linters = {'rust':['rls', 'rustfmt', 'cargo', 'rustc']}
 
 set number
 
