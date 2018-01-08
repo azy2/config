@@ -137,7 +137,6 @@
   :ensure t
   :init
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
-  (setq-default flycheck-clang-language-standard "c++11")
   :config
   (global-flycheck-mode))
 
@@ -174,6 +173,7 @@
 (require 'cc-mode)
 (setq c-default-style "linux"
       c-basic-offset 4)
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 (defun end-of-block ()
   (interactive)
@@ -228,7 +228,11 @@
   :ensure t
   :init
   (setq-default multi-term-dedicated-window-height 20)
-  :bind (("<C-return>" . multi-term-dedicated-toggle)))
+  (defun multi-term-dedicated-toggle-and-switch ()
+    (interactive)
+    (multi-term-dedicated-toggle)
+    (multi-term-dedicated-select))
+  :bind (("<C-return>" . multi-term-dedicated-toggle-and-switch)))
 
 (use-package treemacs
   :ensure t
