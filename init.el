@@ -204,14 +204,17 @@
          :map helm-map
          ([tab] . helm-execute-persistent-action))
   :init
-  (setq-default helm-autoresize-max-height 60)
-  (setq-default helm-autoresize-min-height 20)
-  (setq-default helm-M-x-fuzzy-match t)
-  (setq-default helm-buffers-fuzzy-matching t
-                helm-recentf-fuzzy-match t)
+  (setq-default helm-M-x-fuzzy-match t
+                helm-buffers-fuzzy-matching t
+                helm-recentf-fuzzy-match t
+                helm-split-window-inside-p t
+                helm-display-header-line nil)
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*helm.*\\*\\'"
+                 (display-buffer-in-side-window)
+                 (window-height . 0.4)))
   :config
-  (helm-mode 1)
-  (helm-autoresize-mode 1))
+  (helm-mode 1))
 
 (use-package projectile
   :ensure t
@@ -234,17 +237,17 @@
     (multi-term-dedicated-select))
   :bind (("<C-return>" . multi-term-dedicated-toggle-and-switch)))
 
-(use-package treemacs
-  :ensure t
-  :config
-  (treemacs-tag-follow-mode)
-  (treemacs-git-mode 'extended)
-  (treemacs-filewatch-mode)
-  :bind (("C-o" . treemacs-toggle)))
+;; (use-package treemacs
+;;   :ensure t
+;;   :config
+;;   (treemacs-tag-follow-mode)
+;;   (treemacs-git-mode 'extended)
+;;   (treemacs-filewatch-mode)
+;;   :bind (("C-o" . treemacs-toggle)))
 
-(use-package treemacs-projectile
-  :ensure t
-  :after (treemacs))
+;; (use-package treemacs-projectile
+;;   :ensure t
+;;   :after (treemacs))
 
 (use-package magit
   :ensure t
@@ -282,4 +285,4 @@
   :config
   (dashboard-setup-startup-hook))
 
-(treemacs)
+;; (treemacs)
