@@ -7,6 +7,8 @@ for dir in $(find . -type d | sed 's/^..//'); do
 done
 
 for dotfile in $(find . -type f | sed 's/^..//'); do
-	rm "$HOME/$dotfile";
+	if [ -f "$HOME/$dotfile" ]; then
+        rm "$HOME/$dotfile"
+    fi
 	ln -s "$PWD/$dotfile" "$HOME/$dotfile"
 done
