@@ -35,7 +35,14 @@
         (:map (c++-mode-map c-mode-map)
           (:leader
             (:desc "Major-mode" :prefix "m"
-              :desc "Run cmake" "m" #'cmake-ide-compile)))))
+              :desc "Run cmake" "m" #'cmake-ide-compile))))
+      (:after rtags
+        (:map (c++-mode-map c-mode-map)
+          (:leader
+            (:desc "rtags" :prefix "r"
+              :desc "Find symbol at point" "r" #'rtags-find-symbol-at-point
+              :desc "Jump back" "," #'rtags-location-stack-back
+              :desc "Jump forward" "." #'rtags-location-stack-forward)))))
 
 
 ;; This files defines a Spacemacs-esque keybinding scheme

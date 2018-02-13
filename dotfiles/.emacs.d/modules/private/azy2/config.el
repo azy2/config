@@ -62,6 +62,8 @@
 (setq show-trailing-whitespace t
       which-key-idle-delay 0.1)
 
+(setq counsel-find-file-ignore-regexp nil)
+
 (add-hook! :append 'doom-init-ui-hook
   (blink-cursor-mode -1)
   (setq-default cursor-type 'bar))
