@@ -13,8 +13,7 @@
       (:leader
         (:desc "Neotree" :prefix "t"
           :desc "Toggle" "t" #'neotree-toggle)
-        :desc "Magit" "g" #'magit-status
-        :desc "")
+        :desc "Magit" "g" #'magit-status)
       (:after ivy
         :map ivy-minibuffer-map
         [escape] #'keyboard-escape-quit
@@ -42,7 +41,10 @@
             (:desc "rtags" :prefix "r"
               :desc "Find symbol at point" "r" #'rtags-find-symbol-at-point
               :desc "Jump back" "," #'rtags-location-stack-back
-              :desc "Jump forward" "." #'rtags-location-stack-forward)))))
+              :desc "Jump forward" "." #'rtags-location-stack-forward))))
+      (:after magit
+        (:map magit-mode-map
+          "C-t" #'ace-window)))
 
 
 ;; This files defines a Spacemacs-esque keybinding scheme

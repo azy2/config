@@ -75,5 +75,3 @@
 (setq flycheck-pos-tip-timeout 60)
 
 (add-hook 'doc-view-mode-hook #'auto-revert-mode)
-
-(add-hook! 'emacs-lisp-mode-hook #'electric-pair-mode)
