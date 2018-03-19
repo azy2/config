@@ -1,0 +1,7 @@
+[submodule "home/.emacs.d"]
+	path = home/.emacs.d
+	url = https://github.com/hlissner/doom-emacs.git
+	branch = develop
+[submodule "home/.doom.d"]
+	path = home/.doom.d
+	url = git@github.com:azy2/doom-emacs-private.git
