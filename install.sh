@@ -6,7 +6,13 @@ DOTFILE_DIR=$PWD/home
 
 cd $HOME
 
-DIRS=('.emacs.d' '.doom.d' '.zprezto' '.local/share/konsole' '.local/share/dolphin' '.config')
+DIRS=(
+    '.emacs.d'
+    '.doom.d'
+    '.zprezto'
+    '.local/share/konsole'
+    '.local/share/dolphin'
+    '.local/share/sddm')
 
 for f in $DIRS; do
     LINK=$HOME/$f
