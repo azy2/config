@@ -1,9 +1,13 @@
+[DownloadDialog Settings]
+Height 1080=522
+Width 1920=700
+
 [PlasmaRunnerManager]
-LaunchCounts=2 services_firefox.desktop,2 services_org.keepassxc.KeePassXC.desktop,2 services_systemsettings.desktop,1 services_emoticons.desktop,19 services_emacs25.desktop,1 services_keepassx.desktop,8 services_org.kde.konsole.desktop
+LaunchCounts=2 services_systemsettings.desktop,12 services_org.kde.konsole.desktop,1 services_keepassx.desktop,2 services_firefox.desktop,22 services_emacs25.desktop,1 services_emoticons.desktop,2 services_org.keepassxc.KeePassXC.desktop
 pluginWhiteList=services,places,desktopsessions,PowerDevil,shell,bookmarks,recentdocuments,locations,baloosearch
 
 [PlasmaViews][Panel 2][Horizontal1920]
-thickness=36
+thickness=38
 
 [ScreenConnectors]
 0=eDP-1

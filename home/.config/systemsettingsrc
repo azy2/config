@@ -1,11 +1,22 @@
+[ConfigDialog]
+Height 1080=284
+Width 1920=417
+
 [DownloadDialog Settings]
-Height 1080=522
+Height 1080=527
 Width 1920=700
 
+[Main]
+ActiveView=systemsettings_sidebar_mode
+
 [MainWindow]
-Height 1080=1019
+Height 1080=693
 MenuBar=Disabled
-State=AAAA/wAAAAD9AAAAAAAAB4AAAAP9AAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgAAAAAA/////wAAAAAAAAAA
+State=AAAA/wAAAAD9AAAAAAAABP4AAAK1AAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgAAAAAA/////wAAAAAAAAAA
 ToolBarsMovable=Disabled
-Width 1920=958
-Window-Maximized 1080x1920=true
+Width 1920=1278
+Window-Maximized 1080x1920=false
+
+[classic_mode]
+autoExpandOneLevel=true
+viewLayout=640,1279

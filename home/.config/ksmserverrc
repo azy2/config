@@ -4,7 +4,7 @@ excludeApps=
 loginMode=default
 offerShutdown=false
 screenCount=1
-shutdownType=0
+shutdownType=1
 
 [LegacySession: saved at previous logout]
 count=0

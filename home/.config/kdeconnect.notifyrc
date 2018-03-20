@@ -1,0 +1,11 @@
+[Event/notification]
+Execute=
+Logfile=
+Sound=
+TTS=
+
+[Event/pingReceived]
+Execute=
+Logfile=
+Sound=
+TTS=
