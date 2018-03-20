@@ -3,6 +3,7 @@ OpenGLIsUnsafe=false
 
 [Desktops]
 Number=1
+Rows=1
 
 [Effect-Cube]
 BorderActivate=9
@@ -27,6 +28,16 @@ Top=None
 TopLeft=None
 TopRight=None
 
+[Plugins]
+cubeslideEnabled=false
+desktopchangeosdEnabled=false
+kwin4_effect_fadedesktopEnabled=false
+slideEnabled=true
+
+[Script-desktopchangeosd]
+PopupHideDelay=1000
+TextOnly=false
+
 [TabBox]
 BorderActivate=9
 BorderAlternativeActivate=9
@@ -38,6 +49,7 @@ ElectricBorderDelay=150
 ElectricBorderMaximize=true
 ElectricBorderTiling=true
 ElectricBorders=0
+RollOverDesktops=true
 
 [org.kde.kdecoration2]
 BorderSize=Normal
