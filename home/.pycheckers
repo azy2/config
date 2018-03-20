@@ -1,0 +1,2 @@
+[DEFAULT]
+pylint_rcfile=~/.config/pylintrc
