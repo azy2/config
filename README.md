@@ -1,6 +1,8 @@
 # Installing
 
 ```
-git clone --recursive git@github.com:azy2/config.git
+git clone git@github.com:azy2/config.git
+cd config
+./config -i
 ```
 
