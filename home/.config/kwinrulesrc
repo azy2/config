@@ -1,0 +1,12 @@
+[1]
+Description=Application settings for emacs
+clientmachine=ben-xps-13-9360
+clientmachinematch=0
+strictgeometry=false
+strictgeometryrule=2
+wmclass=emacs25 emacs
+wmclasscomplete=true
+wmclassmatch=1
+
+[General]
+count=1
