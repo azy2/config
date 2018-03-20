@@ -1,0 +1,79 @@
+#!/usr/bin/env python
+
+import argparse
+from subprocess import call, check_output
+from os import environ, path, chdir
+import os
+
+
+def get_output(cmd):
+    return check_output(cmd, shell=True).decode('utf-8')
+
+
+def run(cmd, dry):
+    if dry:
+        print(cmd)
+        return 0
+    else:
+        return call(cmd, shell=True)
+
+
+def make_links(f, v):
+    full = path.realpath(f)
+    link = path.join(v['home'], path.relpath(f, 'home'))
+    target = path.join(v['config_dir'], f)
+    if path.isdir(full) and f not in v['submodules']:
+        for sub_file in os.listdir(f):
+            make_links(path.join(f, sub_file), v)
+    else:
+        if path.islink(link):
+            run("rm " + link, v['dry'])
+        elif path.isdir(link):
+            exist = path.join('~', path.relpath(link, v['home']))
+            backup = exist + '.bak'
+            print("Directory " + exist +
+                  " exists. Moving it to " + backup)
+            run("mv " + exist + " " + backup, v['dry'])
+
+        run("mkdir -p " + path.dirname(link), v['dry'])
+        run("ln -s " + target + " " + link, v['dry'])
+
+
+def add_file(f, v):
+    full = path.realpath(f)
+    new_home = path.join(v['config_dir'], 'home')
+    target = path.join(new_home, path.relpath(full, v['home']))
+    run("mkdir -p " + path.dirname(target), v['dry'])
+    run("mv " + full + " " + target, v['dry'])
+    make_links(path.relpath(target, v['config_dir']), v)
+
+
+def main(args):
+    v = {}
+    v['home'] = environ['HOME']
+    v['config_dir'] = path.dirname(path.realpath(__file__))
+    v['dry'] = args.dry
+    v['submodules'] = []
+    if args.install:
+        chdir(v['config_dir'])
+
+        run("git submodule update --init --recursive", v['dry'])
+
+        v['submodules'] = get_output(
+            "git config --file .gitmodules --get-regexp path | awk '{ print $2 }'").split('\n')[0:-1]
+        make_links('home', v)
+    elif args.add:
+        for f in args.add:
+            add_file(f.replace(' ', '\\ '), v)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-i', '--install', help="Create symlinks for everything in home",
+                        action='store_true')
+    parser.add_argument('-d', '--dry', help="Print destructive commands instead of running them",
+                        action='store_true')
+    parser.add_argument('-a', '--add', nargs='+', metavar='FILE',
+                        help="Move file into config repo and install symlink")
+    cl_args = parser.parse_args()
+    main(cl_args)
