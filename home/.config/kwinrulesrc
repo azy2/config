@@ -1,4 +1,31 @@
 [1]
+Description=Window settings for emacs
+clientmachine=ben-xps-13-9360
+clientmachinematch=0
+ignoregeometry=true
+ignoregeometryrule=2
+strictgeometry=false
+strictgeometryrule=2
+title=+bindings.el – Doom Emacs
+titlematch=1
+types=1
+wmclass=emacs
+wmclasscomplete=false
+wmclassmatch=1
+
+[2]
+Description=Application settings for emacs
+clientmachine=ben-xps-13-9360
+clientmachinematch=0
+ignoregeometry=false
+ignoregeometryrule=2
+strictgeometry[$d]
+strictgeometryrule[$d]
+wmclass=emacs
+wmclasscomplete=false
+wmclassmatch=1
+
+[3]
 Description=Application settings for emacs
 clientmachine=ben-xps-13-9360
 clientmachinematch=0
@@ -9,4 +36,4 @@ wmclasscomplete=true
 wmclassmatch=1
 
 [General]
-count=1
+count=3
