@@ -3,7 +3,7 @@ Height 1080=522
 Width 1920=700
 
 [PlasmaRunnerManager]
-LaunchCounts=2 services_systemsettings.desktop,12 services_org.kde.konsole.desktop,1 services_keepassx.desktop,2 services_firefox.desktop,22 services_emacs25.desktop,1 services_emoticons.desktop,2 services_org.keepassxc.KeePassXC.desktop
+LaunchCounts=12 services_org.kde.konsole.desktop,1 services_emoticons.desktop,2 services_firefox.desktop,1 services_keepassx.desktop,2 services_org.keepassxc.KeePassXC.desktop,2 services_systemsettings.desktop,23 services_emacs25.desktop
 pluginWhiteList=services,places,desktopsessions,PowerDevil,shell,bookmarks,recentdocuments,locations,baloosearch
 
 [PlasmaViews][Panel 2][Horizontal1920]

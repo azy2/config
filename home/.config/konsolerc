@@ -8,8 +8,8 @@ Favorites=
 Height 1080=667
 State=AAAA/wAAAAD9AAAAAAAAA74AAAJ/AAAABAAAAAQAAAAIAAAACPwAAAAA
 ToolBarsMovable=Disabled
-Width 1920=964
-Window-Maximized 1080x1920=false
+Width 1920=1278
+Window-Maximized 1080x1920=true
 
 [TabBar]
 TabBarPosition=Top

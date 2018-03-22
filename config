@@ -24,14 +24,14 @@ def make_links(f, v):
     target = path.join(v['config_dir'], f)
     if path.isdir(full) and f not in v['submodules']:
         for sub_file in os.listdir(f):
-            make_links(path.join(f, sub_file), v)
+            make_links(path.join(f, sub_file).replace(' ', '\\ '), v)
     else:
         if path.islink(link):
             run("rm " + link, v['dry'])
-        elif path.isdir(link):
+        elif path.isdir(link) or path.isfile(link):
             exist = path.join('~', path.relpath(link, v['home']))
             backup = exist + '.bak'
-            print("Directory " + exist +
+            print("File " + exist +
                   " exists. Moving it to " + backup)
             run("mv " + exist + " " + backup, v['dry'])
 

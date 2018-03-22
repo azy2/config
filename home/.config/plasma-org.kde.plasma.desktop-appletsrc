@@ -19,6 +19,10 @@ wallpaperplugin=org.kde.haenau
 DialogHeight=540
 DialogWidth=720
 
+[Containments][1][General]
+pressToMoveHelp=false
+showToolbox=false
+
 [Containments][1][Wallpaper][org.kde.potd][General]
 FillMode=2
 

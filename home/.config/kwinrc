@@ -11,7 +11,7 @@ WindowsBlockCompositing=true
 XRenderSmoothScale=false
 
 [Desktops]
-Number=1
+Number=4
 Rows=1
 
 [Effect-Cube]
