@@ -18,6 +18,19 @@ def run(cmd, dry):
         return call(cmd, shell=True)
 
 
+def make_link(target, link, v):
+    if path.islink(link):
+        run("rm " + link, v['dry'])
+    elif path.isdir(link) or path.isfile(link):
+        exist = path.join('~', path.relpath(link, v['home']))
+        backup = exist + '.bak'
+        print("File " + exist +
+              " exists. Moving it to " + backup)
+        run("mv " + exist + " " + backup, v['dry'])
+    run("mkdir -p " + path.dirname(link), v['dry'])
+    run("ln -s " + target + " " + link, v['dry'])
+
+
 def make_links(f, v):
     full = path.realpath(f)
     link = path.join(v['home'], path.relpath(f, 'home'))
@@ -26,17 +39,13 @@ def make_links(f, v):
         for sub_file in os.listdir(f):
             make_links(path.join(f, sub_file).replace(' ', '\\ '), v)
     else:
-        if path.islink(link):
-            run("rm " + link, v['dry'])
-        elif path.isdir(link) or path.isfile(link):
-            exist = path.join('~', path.relpath(link, v['home']))
-            backup = exist + '.bak'
-            print("File " + exist +
-                  " exists. Moving it to " + backup)
-            run("mv " + exist + " " + backup, v['dry'])
+        make_link(target, link, v)
 
-        run("mkdir -p " + path.dirname(link), v['dry'])
-        run("ln -s " + target + " " + link, v['dry'])
+
+def make_zsh_links(v):
+    folder = path.join(v['config_dir'], 'home', '.zprezto', 'runcoms')
+    for z in ['zlogin', 'zlogout', 'zpreztorc', 'zprofile', 'zshenv', 'zshrc']:
+        make_link(path.join(folder, z), path.join('~', '.' + z), v)
 
 
 def add_file(f, v):
@@ -62,6 +71,7 @@ def main(args):
         v['submodules'] = get_output(
             "git config --file .gitmodules --get-regexp path | awk '{ print $2 }'").split('\n')[0:-1]
         make_links('home', v)
+        make_zsh_links(v)
     elif args.add:
         for f in args.add:
             add_file(f.replace(' ', '\\ '), v)
