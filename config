@@ -45,7 +45,7 @@ def make_links(f, v):
 def make_zsh_links(v):
     folder = path.join(v['config_dir'], 'home', '.zprezto', 'runcoms')
     for z in ['zlogin', 'zlogout', 'zpreztorc', 'zprofile', 'zshenv', 'zshrc']:
-        make_link(path.join(folder, z), path.join('~', '.' + z), v)
+        make_link(path.join(folder, z), path.join(v['home'], '.' + z), v)
 
 
 def create_doom_emacs_init(v):
