@@ -143,19 +143,21 @@ DisabledSemiTransparent=true
 DisabledValue=1
 Size=32
 
+[DirSelect Dialog]
+DirSelectDialog Size=640,480
+History Items[$e]=file:$HOME/nexcloud
+
 [General]
 ColorScheme=Breeze
 Name=Breeze
 XftAntialias=true
-XftHintStyle=hintslight
-XftSubPixel=rgb
 dbfile=/home/ben/.mozilla/firefox/x1ab6bai.default/places.sqlite
 fixed=DejaVu Sans Mono,11,-1,5,50,0,0,0,0,0,Book
 font=Ubuntu,11,-1,5,50,0,0,0,0,0,Regular
-menuFont=San Francisco Display,11,-1,5,50,0,0,0,0,0,Regular
+menuFont=Ubuntu,11,-1,5,50,0,0,0,0,0,Regular
 shadeSortColumn=true
 smallestReadableFont=Ubuntu,9,-1,5,50,0,0,0,0,0,Regular
-toolBarFont=San Francisco Display,11,-1,5,63,0,0,0,0,0,Semibold
+toolBarFont=Ubuntu,11,-1,5,57,0,0,0,0,0,Medium
 widgetStyle=Breeze
 
 [Icons]
@@ -182,7 +184,7 @@ Show hidden files=false
 Sort by=Name
 Sort directories first=true
 Sort reversed=false
-Speedbar Width=110
+Speedbar Width=111
 View Style=Simple
 listViewIconSize=0
 
@@ -277,7 +279,7 @@ Size=22
 [WM]
 activeBackground=71,80,87
 activeBlend=255,255,255
-activeFont=San Francisco Display,11,-1,5,50,0,0,0,0,0,Regular
+activeFont=Ubuntu,11,-1,5,57,0,0,0,0,0,Medium
 activeForeground=239,240,241
 inactiveBackground=239,240,241
 inactiveBlend=75,71,67

@@ -3,20 +3,28 @@ Height 1080=284
 Width 1920=417
 
 [DownloadDialog Settings]
-Height 1080=527
+Height 1080=513
 Width 1920=700
+
+[KPropertiesDialog]
+Height 1080=449
+Width 1920=431
 
 [Main]
 ActiveView=systemsettings_sidebar_mode
 
 [MainWindow]
-Height 1080=693
+Height 1080=695
 MenuBar=Disabled
-State=AAAA/wAAAAD9AAAAAAAABP4AAAK1AAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgAAAAAA/////wAAAAAAAAAA
+State=AAAA/wAAAAD9AAAAAAAABP4AAAK3AAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgAAAAAA/////wAAAAAAAAAA
 ToolBarsMovable=Disabled
 Width 1920=1278
 Window-Maximized 1080x1920=false
 
+[Open-with settings]
+CompletionMode=5
+History=keepassxc
+
 [classic_mode]
 autoExpandOneLevel=true
-viewLayout=640,1279
+viewLayout=426,851

@@ -1,3 +1,3 @@
 [KFileDialog Settings]
-Recent Files[$e]=passwords.kdbx,file:$HOME/passwords.kdbx
-Recent URLs[$e]=file:$HOME/config/,file:///usr/bin/
+Recent Files[$e]=passwords.kdbx,file:$HOME/nexcloud/passwords.kdbx
+Recent URLs[$e]=file:$HOME/config/,file:///usr/bin/,file:$HOME/nexcloud/

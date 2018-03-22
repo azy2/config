@@ -13,7 +13,15 @@ Toggle Touchpad=Touchpad Toggle,Touchpad Toggle,Toggle Touchpad
 _k_friendly_name=KDE Daemon
 
 [kded5]
+Decrease Keyboard Brightness=,Keyboard Brightness Down,Decrease Keyboard Brightness
+Decrease Screen Brightness=,Monitor Brightness Down,Decrease Screen Brightness
+Hibernate=,Hibernate,Hibernate
+Increase Keyboard Brightness=,Keyboard Brightness Up,Increase Keyboard Brightness
+Increase Screen Brightness=,Monitor Brightness Up,Increase Screen Brightness
+PowerOff=,Power Off,Power Off
 Show System Activity=Ctrl+Esc,Ctrl+Esc,Show System Activity
+Sleep=,Sleep,Suspend
+Toggle Keyboard Backlight=,Keyboard Light On/Off,Toggle Keyboard Backlight
 _k_friendly_name=KDE Daemon
 display=Display\tMeta+P,Display\tMeta+P,Switch Display
 
@@ -193,7 +201,7 @@ Window to Screen 4=none,none,Window to Screen 4
 Window to Screen 5=none,none,Window to Screen 5
 Window to Screen 6=none,none,Window to Screen 6
 Window to Screen 7=none,none,Window to Screen 7
-_k_friendly_name=System Settings
+_k_friendly_name=KWin
 view_actual_size=Meta+0,Meta+0,Actual Size
 view_zoom_in=Meta+=,Meta+=,Zoom In
 view_zoom_out=Meta+-,Meta+-,Zoom Out
