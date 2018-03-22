@@ -49,7 +49,7 @@ def make_zsh_links(v):
 
 
 def create_doom_emacs_init(v):
-    with open(path.join(v['config_dir'], 'home', 'emacs.d', 'init.el'), 'w+') as init_el:
+    with open(path.join(v['config_dir'], 'home', '.emacs.d', 'init.el'), 'w+') as init_el:
         init_el.write("(require 'core (concat user-emacs-directory \"core/core\"))\n\n(doom! :config\n       private)")
 
 
