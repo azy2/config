@@ -48,6 +48,11 @@ def make_zsh_links(v):
         make_link(path.join(folder, z), path.join('~', '.' + z), v)
 
 
+def create_doom_emacs_init(v):
+    with open(path.join(v['config_dir'], 'home', 'emacs.d', 'init.el'), 'w') as init_el:
+        init_el.write("(require 'core (concat user-emacs-directory \"core/core\"))\n\n(doom! :config\n       private)")
+
+
 def add_file(f, v):
     full = path.realpath(f)
     new_home = path.join(v['config_dir'], 'home')
