@@ -77,6 +77,7 @@ def main(args):
             "git config --file .gitmodules --get-regexp path | awk '{ print $2 }'").split('\n')[0:-1]
         make_links('home', v)
         make_zsh_links(v)
+        create_doom_emacs_init(v)
     elif args.add:
         for f in args.add:
             add_file(f.replace(' ', '\\ '), v)
