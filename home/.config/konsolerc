@@ -9,7 +9,7 @@ Height 1080=1015
 State=AAAA/wAAAAD9AAAAAAAAA74AAAPbAAAABAAAAAQAAAAIAAAACPwAAAAA
 ToolBarsMovable=Disabled
 Width 1920=958
-Window-Maximized 1080x1920=true
+Window-Maximized 1080x1920=false
 
 [TabBar]
 TabBarPosition=Top
