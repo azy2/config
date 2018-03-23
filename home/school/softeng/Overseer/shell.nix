@@ -13,6 +13,7 @@ stdenv.mkDerivation rec {
     openssl
   ];
   shellHook = ''
+    export PATH="$HOME/.pyenv/bin:$PATH"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
     pyenv activate ovs
