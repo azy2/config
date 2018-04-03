@@ -9,3 +9,8 @@ EverMounted=true
 Icon=drive-harddisk
 LastNameSeen=118.7 GiB Hard Drive
 LastSeenMounted=true
+
+[Devices][/org/freedesktop/UDisks2/block_devices/sda4]
+Icon=drive-harddisk
+LastNameSeen=Basic data partition
+LastSeenMounted=false

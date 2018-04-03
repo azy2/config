@@ -5,5 +5,5 @@ RepeatDelay=200
 RepeatRate=30
 
 [Mouse]
-cursorSize=0
-cursorTheme=capitaine-cursors
+cursorSize=36
+cursorTheme=breeze_cursors

@@ -1,5 +1,19 @@
+[ExtractDialog]
+DirHistory[$e]=$HOME/school/project/
+
+[KFileDialog Settings]
+Recent Files[$e]=file:$HOME,file:$HOME
+Recent URLs[$e]=file:$HOME/school/project/
+
 [MainWindow]
-State=AAAA/wAAAAD9AAAAAAAAAoAAAAGcAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA
+Height 2160=480
+MenuBar=Disabled
+State=AAAA/wAAAAD9AAAAAAAAA80AAAG0AAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA
 StatusBar=Disabled
 ToolBarsMovable=Disabled
-splitterSizes=426,213
+Width 3840=973
+splitterSizes=648,324
+
+[Recent Files]
+File1[$e]=$HOME/Downloads/MSEdge.Win10.VirtualBox.zip
+Name1[$e]=MSEdge.Win10.VirtualBox.zip

@@ -2,9 +2,9 @@
 AnimationSpeed=3
 Backend=OpenGL
 Enabled=true
-GLCore=false
-GLPreferBufferSwap=a
-GLTextureFilter=2
+GLCore=true
+GLPreferBufferSwap=p
+GLTextureFilter=0
 HiddenPreviews=5
 OpenGLIsUnsafe=false
 WindowsBlockCompositing=true
@@ -111,5 +111,5 @@ BorderSize=None
 ButtonsOnLeft=XIA
 ButtonsOnRight=
 CloseOnDoubleClickOnMenu=false
-library=org.kde.kwin.aurorae
-theme=__aurorae__svg__Breezemite_dark
+library=org.kde.breeze
+theme[$d]
