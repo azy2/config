@@ -1,5 +1,5 @@
 [Appearance]
-ColorScheme=Breeze
+ColorScheme=City lights
 Font=DejaVu Sans Mono,11,-1,0,50,0,0,0,0,0,Book
 
 [Cursor Options]

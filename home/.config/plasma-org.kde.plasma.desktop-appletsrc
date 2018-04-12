@@ -174,7 +174,7 @@ immutability=1
 plugin=org.kde.plasma.systemtray
 
 [Containments][2][Applets][6][Configuration]
-PreloadWeight=22
+PreloadWeight=13
 SystrayContainmentId=7
 
 [Containments][2][Applets][8]
@@ -182,7 +182,7 @@ immutability=1
 plugin=org.kde.plasma.digitalclock
 
 [Containments][2][Applets][8][Configuration]
-PreloadWeight=2
+PreloadWeight=8
 
 [Containments][2][ConfigDialog]
 DialogHeight=98
@@ -324,7 +324,7 @@ immutability=1
 plugin=org.kde.plasma.volume
 
 [Containments][7][Applets][9][Configuration]
-PreloadWeight=22
+PreloadWeight=28
 
 [Containments][7][Applets][9][Configuration][ConfigDialog]
 DialogHeight=840
@@ -380,4 +380,4 @@ immutability=1
 
 [ScreenMapping]
 itemsOnDisabledScreens=
-screenMapping=desktop:/trash.desktop,0,desktop:/Old Firefox Data,0,desktop:/Home.desktop,0
+screenMapping=desktop:/Home.desktop,0,desktop:/trash.desktop,0,desktop:/Old Firefox Data,0

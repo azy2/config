@@ -6,11 +6,11 @@ Favorites=Profile 1.profile
 
 [MainWindow]
 Height 1080=667
-Height 2160=2107
+Height 2160=1203
 State=AAAA/wAAAAD9AAAAAAAAA74AAAPbAAAABAAAAAQAAAAIAAAACPwAAAAA
 ToolBarsMovable=Disabled
 Width 1920=958
-Width 3840=1920
+Width 3840=2002
 Window-Maximized 1080x1920=true
 Window-Maximized 2160x3840=true
 

@@ -1,19 +1,41 @@
 [ExtractDialog]
-DirHistory[$e]=$HOME/school/project/
+DirHistory[$e]=$HOME/school/softeng/Overseer/ovs/static/,$HOME/school/softeng/Overseer/,$HOME/school/project/
+
+[Extraction]
+closeAfterExtraction=true
+openDestinationFolderAfterExtraction=false
+
+[HTML Settings]
+AutomaticDetectionLanguage=1
 
 [KFileDialog Settings]
-Recent Files[$e]=file:$HOME,file:$HOME
-Recent URLs[$e]=file:$HOME/school/project/
+Recent Files[$e]=file:$HOME
+Recent URLs[$e]=file:$HOME/school/project/,file:$HOME/school/softeng/Overseer/,file:$HOME/school/softeng/,file:$HOME/school/,file:$HOME/school/softeng/Overseer/ovs/static/,file:$HOME/school/softeng/Overseer/ovs/
 
 [MainWindow]
-Height 2160=480
+Height 2160=1545
 MenuBar=Disabled
-State=AAAA/wAAAAD9AAAAAAAAA80AAAG0AAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA
+State=AAAA/wAAAAD9AAAAAAAABkIAAAXdAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA
 StatusBar=Disabled
 ToolBarsMovable=Disabled
-Width 3840=973
-splitterSizes=648,324
+Width 3840=1602
+splitterSizes=1067,534
 
 [Recent Files]
 File1[$e]=$HOME/Downloads/MSEdge.Win10.VirtualBox.zip
+File2[$e]=$HOME/Downloads/startbootstrap-sb-admin-gh-pages.zip
+File3[$e]=$HOME/Downloads/material-dashboard-react-v1.1.0.zip
+File4[$e]=$HOME/Downloads/material-dashboard-master.zip
+File5[$e]=$HOME/Downloads/MDB-Free.zip
+File6[$e]=$HOME/Downloads/mdb-tutorial.zip
+File7[$e]=$HOME/Downloads/material-4.0.0-dist.zip
 Name1[$e]=MSEdge.Win10.VirtualBox.zip
+Name2[$e]=startbootstrap-sb-admin-gh-pages.zip
+Name3[$e]=material-dashboard-react-v1.1.0.zip
+Name4[$e]=material-dashboard-master.zip
+Name5[$e]=MDB-Free.zip
+Name6[$e]=mdb-tutorial.zip
+Name7[$e]=material-4.0.0-dist.zip
+
+[Viewer]
+Window-Maximized 2160x3840=true
